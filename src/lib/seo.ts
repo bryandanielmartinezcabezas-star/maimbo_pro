@@ -4,7 +4,7 @@ export const siteConfig = {
   title: "MAIMBO | Streetwear en Sucre — Vende Estilo",
   description:
     "Tienda streetwear MAIMBO en Sucre, Bolivia. Tracksuits, hoodies, jeans y accesorios. Local en Ostria Reyes 555. Envíos a todo Bolivia. Pedidos por WhatsApp 75769315.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maimbo.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://maimbo-pro.vercel.app",
   locale: "es_BO",
   language: "es",
   phone: "+59175769315",
