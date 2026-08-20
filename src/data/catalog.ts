@@ -84,6 +84,20 @@ const img = {
   mochila5: "/img/real/mochila-5.jpg",
   mochila6: "/img/real/mochila-6.jpg",
 
+  // Sudaderas, fotografiadas de frente y de espalda.
+  // El sufijo _rev es el reverso: es la segunda foto de la tarjeta, para ver
+  // el estampado de la espalda sin abrir el producto.
+  sudadera1: "/img/real/sudadera_1.jpg",
+  sudadera1Rev: "/img/real/sudadera_1_rev.jpg",
+  sudadera2: "/img/real/sudadera_2.jpg",
+  sudadera2Rev: "/img/real/sudadera_2_rev.jpg",
+  sudadera3: "/img/real/sudadera_3.jpg",
+  sudadera3Rev: "/img/real/sudadera_3_rev.jpg",
+  sudadera4: "/img/real/sudadera_4.jpg",
+  sudadera4Rev: "/img/real/sudadera_4_rev.jpg",
+  sudadera5: "/img/real/sudadera_5.jpg",
+  sudadera5Rev: "/img/real/sudadera_5_rev.jpg",
+
   // Piezas verticales pensadas como banner
   bannerRopa: "/img/real/banner-de-ropa-vertical.jpg",
   bannerVertical: "/img/real/banner-vertical.jpg",
@@ -120,12 +134,14 @@ export const heroes = [
   },
   {
     id: "h3",
-    eyebrow: "ACCESORIOS",
-    title: "BOLSOS Y MOCHILAS",
-    subtitle: "El detalle que cierra el look.",
-    cta: "Ver accesorios",
+    eyebrow: "CONJUNTOS",
+    title: "NOCHE EN LA CALLE",
+    subtitle: "Conjuntos deportivos con corte propio.",
+    cta: "Ver conjuntos",
     secondary: "Novedades",
-    image: img.bolsasColeccion,
+    /* La calle adoquinada de la izquierda queda vacia: el titulo entra ahi
+       sin taparle la ropa al modelo. */
+    image: "/img/real/banner-tunel.jpg",
   },
 ];
 
@@ -181,6 +197,51 @@ export const products: Product[] = [
     tag: "NEW",
     image: img.abrigo3Vestido,
     hoverImage: img.abrigo3,
+  },
+  /* Sudaderas con frente y espalda: el estampado de atras es media prenda y
+     antes no se veia sin abrir el producto. */
+  {
+    id: "s1",
+    name: "SUDADERA ESTAMPADO ESPALDA",
+    price: 280,
+    collection: "hoodies",
+    tag: "HOT",
+    image: img.sudadera1,
+    hoverImage: img.sudadera1Rev,
+  },
+  {
+    id: "s2",
+    name: "SUDADERA GRAFICA",
+    price: 280,
+    collection: "hoodies",
+    image: img.sudadera2,
+    hoverImage: img.sudadera2Rev,
+  },
+  {
+    id: "s3",
+    name: "SUDADERA OVERSIZE",
+    price: 290,
+    collection: "hoodies",
+    tag: "NEW",
+    image: img.sudadera3,
+    hoverImage: img.sudadera3Rev,
+  },
+  {
+    id: "s4",
+    name: "SUDADERA CON CAPUCHA",
+    price: 300,
+    collection: "hoodies",
+    image: img.sudadera4,
+    hoverImage: img.sudadera4Rev,
+  },
+  {
+    id: "s5",
+    name: "SUDADERA NEGRA PREMIUM",
+    price: 310,
+    collection: "hoodies",
+    tag: "DROP",
+    image: img.sudadera5,
+    hoverImage: img.sudadera5Rev,
   },
   {
     id: "h4",

@@ -22,10 +22,6 @@ export function EditorialBanner() {
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-40" />
 
-          <span className="pointer-events-none absolute right-4 top-4 z-10 rounded-full border border-white/25 bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-0 md:opacity-100">
-            Ver completa
-          </span>
-
           <div className="absolute bottom-4 left-4 z-10 sm:bottom-6 sm:left-6">
             <BrandLogo size="sm" className="sm:hidden" href={null} />
             <span className="hidden sm:inline-flex">
