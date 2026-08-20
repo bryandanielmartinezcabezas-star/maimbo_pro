@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
-import { categories } from "@/data/catalog";
+import { NAV_LINKS } from "@/config/sections";
 import { BrandLogo } from "@/components/BrandLogo";
 
 /** Cerca del inicio la barra siempre se ve: esconderla ahi se siente como un
@@ -56,13 +56,13 @@ export function Header() {
         </div>
 
         <nav className="hidden items-center gap-4 xl:gap-5 lg:flex" aria-label="Categorías">
-          {categories.map((cat) => (
+          {NAV_LINKS.map((link) => (
             <a
-              key={cat}
-              href={`#${cat.toLowerCase()}`}
+              key={link.id}
+              href={`#${link.id}`}
               className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted transition hover:text-accent xl:text-[11px] xl:tracking-[0.16em]"
             >
-              {cat}
+              {link.navLabel}
             </a>
           ))}
         </nav>
@@ -112,14 +112,14 @@ export function Header() {
                 </button>
               </div>
               <div className="flex flex-col gap-3 overflow-y-auto pb-10">
-                {categories.map((cat) => (
+                {NAV_LINKS.map((link) => (
                   <a
-                    key={cat}
-                    href={`#${cat.toLowerCase()}`}
+                    key={link.id}
+                    href={`#${link.id}`}
                     onClick={() => setOpen(false)}
                     className="display text-3xl tracking-wide text-text transition hover:text-accent sm:text-4xl"
                   >
-                    {cat}
+                    {link.navLabel}
                   </a>
                 ))}
               </div>
