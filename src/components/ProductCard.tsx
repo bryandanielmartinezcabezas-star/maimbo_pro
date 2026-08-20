@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/catalog";
 import { formatPrice } from "@/data/catalog";
@@ -92,18 +93,28 @@ export function ProductCard({
               </button>
             ))}
           </div>
-          <button
-            type="button"
-            className="display w-full bg-accent py-2 text-lg text-black transition hover:bg-white"
+          <Link
+            href={`/producto/${product.id}`}
+            className="display block w-full bg-accent py-2 text-center text-lg text-black transition hover:bg-white"
           >
             Ver producto
-          </button>
+          </Link>
         </div>
+
+        {/* Toda la foto lleva a la ficha, no solo el boton: en el celular no
+            hay hover y el usuario espera que la imagen sea el enlace. */}
+        <Link
+          href={`/producto/${product.id}`}
+          className="absolute inset-0 z-[5] md:bottom-16"
+          aria-label={`Ver ${product.name}`}
+        />
       </div>
 
       <div className="mt-3 space-y-1">
         <h3 className="text-[12px] font-semibold uppercase tracking-[0.08em] text-text">
-          {product.name}
+          <Link href={`/producto/${product.id}`} className="transition hover:text-accent">
+            {product.name}
+          </Link>
         </h3>
         <div className="flex items-center gap-2">
           <p className="text-sm text-chrome">{formatPrice(product.price)}</p>
