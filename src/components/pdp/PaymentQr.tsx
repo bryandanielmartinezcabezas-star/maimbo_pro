@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import QRCode from "qrcode";
 import { formatPrice } from "@/data/catalog";
@@ -18,41 +18,61 @@ interface PaymentQrProps {
 /** Bancos bolivianos que leen QR Simple, el estandar del Banco Central. */
 const BANCOS = ["Banco Unión", "BNB", "Mercantil Santa Cruz", "BCP", "Ganadero"];
 
+const whatsappLink = (text: string) =>
+  `https://wa.me/${siteConfig.phone.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
+
 /**
  * Pago por QR, que es como se cobra en Bolivia.
  *
- * El codigo que se muestra lleva el pedido armado a WhatsApp, asi que en la
- * demo se escanea con cualquier celular y funciona de verdad. En la tienda real
- * este lugar lo ocupa el QR Simple del banco de MAINBO, que ya cobra a su
- * cuenta: no hace falta pasarela ni comision de terceros.
+ * El codigo lleva el pedido armado a WhatsApp, asi que en la demo se escanea
+ * con cualquier celular y funciona. En la tienda real este lugar lo ocupa el QR
+ * Simple del banco de MAINBO, que cobra directo a su cuenta.
  */
 export function PaymentQr({ open, onClose, productName, size, qty, total }: PaymentQrProps) {
   const [qrDataUrl, setQrDataUrl] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  /* La referencia se fija al abrir el panel y no se vuelve a calcular.
+     Derivarla de la hora en cada render hacia que cambiara sola, y como el
+     codigo depende de ella el efecto se disparaba sin fin: cada vuelta generaba
+     un QR nuevo hasta trabar la pestana. */
+  const [reference, setReference] = useState("");
 
-  /** Referencia corta para que el vendedor ubique el pago en su extracto. */
-  const reference = `MB-${Date.now().toString().slice(-6)}`;
-
-  const orderText = `Hola MAINBO, pagué por QR ${formatPrice(total)} por ${qty} x ${productName}${
-    size ? ` talla ${size}` : ""
-  }. Referencia ${reference}. Adjunto comprobante.`;
-
-  const whatsappHref = `https://wa.me/${siteConfig.phone.replace(/\D/g, "")}?text=${encodeURIComponent(orderText)}`;
+  const orderText = reference
+    ? `Hola MAINBO, pagué por QR ${formatPrice(total)} por ${qty} x ${productName}${
+        size ? ` talla ${size}` : ""
+      }. Referencia ${reference}. Adjunto comprobante.`
+    : "";
 
   useEffect(() => {
     if (!open) return;
-    setConfirmed(false);
 
-    QRCode.toDataURL(whatsappHref, {
-      width: 520,
-      margin: 1,
+    setConfirmed(false);
+    const nextReference = `MB-${Date.now().toString().slice(-6)}`;
+    setReference(nextReference);
+
+    const text = `Hola MAINBO, pagué por QR ${formatPrice(total)} por ${qty} x ${productName}${
+      size ? ` talla ${size}` : ""
+    }. Referencia ${nextReference}. Adjunto comprobante.`;
+
+    let cancelled = false;
+    QRCode.toDataURL(whatsappLink(text), {
+      width: 560,
+      margin: 2,
       errorCorrectionLevel: "M",
       color: { dark: "#0a0a0a", light: "#ffffff" },
     })
-      .then(setQrDataUrl)
-      .catch(() => setQrDataUrl(""));
-    // El QR depende del pedido, y el pedido no cambia mientras el panel esta abierto.
-  }, [open, whatsappHref]);
+      .then((url) => {
+        if (!cancelled) setQrDataUrl(url);
+      })
+      .catch(() => {
+        if (!cancelled) setQrDataUrl("");
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // Solo valores simples: el efecto corre al abrir o si cambia el pedido.
+  }, [open, productName, size, qty, total]);
 
   // Escape cierra, y el fondo no se desplaza mientras el panel esta arriba.
   useEffect(() => {
@@ -66,6 +86,17 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
       document.body.style.overflow = previous;
     };
   }, [open, onClose]);
+
+  /** Guardar el codigo sirve para pagar desde otro telefono o mandarlo por chat. */
+  const downloadQr = useCallback(() => {
+    if (!qrDataUrl) return;
+    const link = document.createElement("a");
+    link.href = qrDataUrl;
+    link.download = `qr-mainbo-${reference || "pago"}.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }, [qrDataUrl, reference]);
 
   return (
     <AnimatePresence>
@@ -92,7 +123,7 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
               <div>
                 <h2 className="display text-2xl text-text">Pago por QR</h2>
                 <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-muted">
-                  Referencia {reference}
+                  Referencia {reference || "—"}
                 </p>
               </div>
               <button
@@ -115,7 +146,11 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
               <div className="mx-auto w-full max-w-[260px] bg-white p-3">
                 {qrDataUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={qrDataUrl} alt={`Código QR de pago por ${formatPrice(total)}`} className="w-full" />
+                  <img
+                    src={qrDataUrl}
+                    alt={`Código QR de pago por ${formatPrice(total)}`}
+                    className="w-full"
+                  />
                 ) : (
                   <div className="grid aspect-square place-items-center text-sm text-black/50">
                     Generando código…
@@ -123,9 +158,17 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
                 )}
               </div>
 
-              <p className="text-center text-sm text-muted">
-                Escaneá con la app de tu banco
-              </p>
+              <div className="flex flex-col items-center gap-2">
+                <p className="text-sm text-muted">Escaneá con la app de tu banco</p>
+                <button
+                  type="button"
+                  onClick={downloadQr}
+                  disabled={!qrDataUrl}
+                  className="border border-line px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-muted transition hover:border-accent hover:text-accent disabled:opacity-40"
+                >
+                  Descargar QR
+                </button>
+              </div>
 
               <ul className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-[11px] text-muted">
                 {BANCOS.map((banco) => (
@@ -157,10 +200,10 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
                     Mandá el comprobante por WhatsApp y preparamos el pedido.
                   </p>
                   <a
-                    href={whatsappHref}
+                    href={whatsappLink(orderText)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="display mt-3 inline-block border border-line px-5 py-2.5 text-base text-text transition hover:border-accent hover:text-accent"
+                    className="display mt-3 block w-full whitespace-nowrap border border-line px-4 py-3 text-base text-text transition hover:border-accent hover:text-accent"
                   >
                     Enviar comprobante
                   </a>
