@@ -10,11 +10,12 @@ export function TrustBar() {
         {benefits.map((item, i) => (
           <motion.div
             key={item.title}
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.4 }}
-            transition={{ delay: i * 0.05 }}
-            className="bg-bg-elevated px-4 py-5"
+            transition={{ delay: i * 0.06, duration: 0.5 }}
+            whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
+            className="bg-bg-elevated px-4 py-5 transition"
           >
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text">
               {item.title}

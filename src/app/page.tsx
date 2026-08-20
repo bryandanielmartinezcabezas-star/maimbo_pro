@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { Header } from "@/components/Header";
 import { HeroSlider } from "@/components/HeroSlider";
@@ -10,8 +11,22 @@ import { DropsSection } from "@/components/DropsSection";
 import { StoreLocation } from "@/components/StoreLocation";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { ParticlesBackground } from "@/components/ParticlesBackground";
+import { StormAtmosphere } from "@/components/StormAtmosphere";
 import { byCollection, products } from "@/data/catalog";
+import { absoluteUrl, siteConfig } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: siteConfig.title,
+  description: siteConfig.description,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: absoluteUrl("/"),
+  },
+};
 
 export default function HomePage() {
   const novedades = products
@@ -29,7 +44,11 @@ export default function HomePage() {
 
   return (
     <main className="relative z-[2]">
-      <ParticlesBackground />
+      <h1 className="sr-only">
+        {siteConfig.name} | {siteConfig.tagline} — Streetwear en Sucre, Bolivia.
+        Local Ostria Reyes 555. Envíos a todo Bolivia. WhatsApp {siteConfig.phoneDisplay}.
+      </h1>
+      <StormAtmosphere />
       <AnnouncementBar />
       <Header />
       <HeroSlider />

@@ -33,21 +33,29 @@ export function ProductCarousel({ title, subtitle, products }: Props) {
   };
 
   return (
-    <section id={anchor} className="border-b border-line py-14 lg:py-20">
+    <section id={anchor} className="border-b border-line py-10 sm:py-14 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
+        <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+          <div className="min-w-0 flex-1">
             <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              className="display text-5xl text-text sm:text-6xl"
+              transition={{ duration: 0.6 }}
+              className="display text-4xl text-text sm:text-5xl md:text-6xl"
             >
               {title}
             </motion.h2>
-            <p className="mt-2 max-w-md text-sm text-muted">{subtitle}</p>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.55 }}
+              className="mt-3 h-px w-20 origin-left bg-gradient-to-r from-white via-chrome to-transparent sm:w-24"
+            />
+            <p className="mt-3 max-w-md text-sm text-muted">{subtitle}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => scrollBy(-1)}
@@ -66,7 +74,7 @@ export function ProductCarousel({ title, subtitle, products }: Props) {
             </button>
             <a
               href="#tienda"
-              className="ml-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent transition hover:text-white"
+              className="ml-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent transition hover:text-white sm:ml-2"
             >
               Ver colección
             </a>
@@ -75,38 +83,43 @@ export function ProductCarousel({ title, subtitle, products }: Props) {
 
         <div
           ref={scroller}
-          className="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+          className="hide-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:gap-4 sm:px-0"
         >
           {products.map((product, i) => (
             <motion.article
               key={`${anchor}-${product.id}-${i}`}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: Math.min(i * 0.04, 0.24) }}
-              className="group relative w-[72vw] shrink-0 snap-start sm:w-[260px] lg:w-[280px]"
+              whileHover={{ y: -6 }}
+              className="group relative w-[78vw] max-w-[280px] shrink-0 snap-start sm:w-[240px] lg:w-[280px]"
             >
-              <div className="product-media relative aspect-[3/4] overflow-hidden border border-line/60">
+              <div className="product-media relative aspect-[3/4] overflow-hidden border border-line/60 transition group-hover:border-white/35 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]">
                 <Image
                   src={product.image}
                   alt={product.name}
                   fill
-                  className="object-cover transition duration-700 group-hover:scale-105"
+                  className="object-cover transition duration-700 group-hover:scale-110"
                   sizes="280px"
                 />
                 <div
                   className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80"
                   aria-hidden
                 />
+                <div
+                  className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition duration-700 group-hover:translate-x-full"
+                  aria-hidden
+                />
                 {product.tag && (
-                  <span className="absolute left-3 top-3 z-10 bg-accent px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
+                  <span className="absolute left-3 top-3 z-10 border border-white/30 bg-gradient-to-r from-white to-[#bdbdbd] px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
                     {product.tag}
                   </span>
                 )}
                 <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-black/85 p-3 transition duration-300 group-hover:translate-y-0">
                   <button
                     type="button"
-                    className="display w-full bg-accent py-2 text-lg text-black transition hover:bg-white"
+                    className="cta-chrome display w-full py-2 text-lg transition"
                   >
                     Ver producto
                   </button>

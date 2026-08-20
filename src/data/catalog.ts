@@ -60,7 +60,6 @@ export const benefits = [
   { title: "Tienda física", detail: "Sucre · Ostria Reyes 555" },
 ];
 
-/** Fotos bien iluminadas / contraste alto para fondo oscuro */
 const img = {
   suit1:
     "/img/rolex-cellini-date-black-dial.webp",

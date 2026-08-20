@@ -48,7 +48,7 @@ export function DropsSection() {
                 <div className="flex flex-wrap gap-3 pt-1">
                   <a
                     href="#tracksuits"
-                    className="display bg-accent px-4 py-2 text-lg text-black transition hover:bg-white"
+                    className="cta-chrome display px-4 py-2 text-lg transition"
                   >
                     Ver colección
                   </a>
