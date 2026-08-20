@@ -5,7 +5,16 @@ export type Product = {
   compareAt?: number;
   collection: string;
   tag?: string;
+  /** Foto principal. Cuando existe la version puesta, va esa. */
   image: string;
+  /**
+   * Segunda foto, que aparece al pasar el mouse.
+   *
+   * La tienda fotografia cada prenda dos veces: puesta por un modelo y sola.
+   * Mostrar primero como queda puesta y despues la prenda en detalle responde
+   * las dos preguntas que se hace quien compra, sin abrir el producto.
+   */
+  hoverImage?: string;
 };
 
 export const categories = [
@@ -93,7 +102,9 @@ export const heroes = [
     subtitle: "Ropa en tendencia para hombre y mujer. Envíos a toda Bolivia.",
     cta: "Ver catálogo",
     secondary: "Novedades",
-    image: img.hoodieLlamas,
+    /* Banner apaisado con los modelos a la derecha y la ciudad vacia a la
+       izquierda: el texto entra en ese hueco sin taparle la ropa a nadie. */
+    image: "/img/real/banner-noche.jpg",
   },
   {
     id: "h2",
@@ -137,17 +148,17 @@ export const products: Product[] = [
     collection: "polos",
     tag: "HOT",
     image: img.polo1Vestido,
+    hoverImage: img.polo1,
   },
-  { id: "p2", name: "POLERA BLANCA PREMIUM", price: 150, collection: "polos", image: img.polo1 },
   {
     id: "p3",
-    name: "POLERA NEGRA BASICA",
+    name: "POLERA AZUL TEXTURADA",
     price: 140,
     collection: "polos",
     tag: "NEW",
     image: img.polo2Vestido,
+    hoverImage: img.polo2,
   },
-  { id: "p4", name: "POLERA CORTE RECTO", price: 140, collection: "polos", image: img.polo2 },
 
   // ---------------------------------------------------------------- hoodies
   {
@@ -159,16 +170,23 @@ export const products: Product[] = [
     tag: "HOT",
     image: img.hoodieLlamas,
   },
-  { id: "h2", name: "HOODIE NEGRO OVERSIZE", price: 290, collection: "hoodies", image: img.abrigo3 },
   {
     id: "h3",
-    name: "HOODIE NEGRO EN LOOK",
+    name: "HOODIE NEGRO OVERSIZE",
     price: 290,
     collection: "hoodies",
     tag: "NEW",
     image: img.abrigo3Vestido,
+    hoverImage: img.abrigo3,
   },
-  { id: "h4", name: "CAMPERA URBANA", price: 340, collection: "hoodies", image: img.abrigo5 },
+  {
+    id: "h4",
+    name: "CAMPERA URBANA",
+    price: 340,
+    collection: "hoodies",
+    image: img.abrigo5Vestido,
+    hoverImage: img.abrigo5,
+  },
 
   // ------------------------------------------------------------- tracksuits
   {
@@ -231,16 +249,15 @@ export const products: Product[] = [
     image: img.bannerRopa,
   },
   { id: "m2", name: "CONJUNTO MUJER", price: 360, collection: "mujer", image: img.bannerVertical },
-  { id: "m3", name: "PRENDA EN LOOK", price: 300, collection: "mujer", image: img.abrigo4Vestido },
   {
-    id: "m4",
+    id: "m3",
     name: "PRENDA DE TEMPORADA",
     price: 300,
     collection: "mujer",
     tag: "HOT",
-    image: img.abrigo5Vestido,
+    image: img.abrigo4Vestido,
+    hoverImage: img.abrigo4,
   },
-  { id: "m5", name: "ABRIGO MUJER", price: 340, collection: "mujer", image: img.abrigo4 },
 
   // ------------------------------------------------------------- accesorios
   {

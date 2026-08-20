@@ -27,6 +27,8 @@ export function ProductCard({
   fixedWidth = false,
   sizes = "280px",
 }: ProductCardProps) {
+  const hasSecondShot = Boolean(product.hoverImage);
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -40,23 +42,56 @@ export function ProductCard({
       }
     >
       <div className="product-media relative aspect-[3/4] overflow-hidden border border-line/60">
+        {/* Primer tiempo: la prenda puesta, que es como el cliente se imagina
+            usandola. */}
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition duration-700 group-hover:scale-105"
+          className={`object-cover transition-opacity duration-500 ${
+            hasSecondShot ? "group-hover:opacity-0" : "transition-transform group-hover:scale-105"
+          }`}
           sizes={sizes}
         />
+
+        {/* Segundo tiempo: la prenda sola, para ver el corte y el detalle.
+            Solo aparece si la tienda fotografio esa version. */}
+        {hasSecondShot && (
+          <Image
+            src={product.hoverImage!}
+            alt={`${product.name}, prenda sola`}
+            fill
+            className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            sizes={sizes}
+          />
+        )}
+
         <div
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-80"
           aria-hidden
         />
+
         {product.tag && (
           <span className="absolute left-3 top-3 z-10 bg-accent px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-black">
             {product.tag}
           </span>
         )}
-        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-black/85 p-3 transition duration-300 group-hover:translate-y-0">
+
+        {/* Las tallas se revelan al acercarse, como en las tiendas de
+            referencia: en reposo manda la foto, no los controles. */}
+        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-black/85 p-3 transition-transform duration-300 group-hover:translate-y-0">
+          <div className="mb-2 flex justify-center gap-1.5">
+            {["S", "M", "L", "XL"].map((size) => (
+              <button
+                key={size}
+                type="button"
+                className="h-7 w-7 border border-white/25 text-[10px] text-white/80 transition hover:border-accent hover:text-accent"
+                aria-label={`Talla ${size}`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
           <button
             type="button"
             className="display w-full bg-accent py-2 text-lg text-black transition hover:bg-white"
@@ -75,17 +110,6 @@ export function ProductCard({
           {product.compareAt && (
             <p className="text-xs text-muted line-through">{formatPrice(product.compareAt)}</p>
           )}
-        </div>
-        <div className="flex gap-1.5 pt-1">
-          {["S", "M", "L", "XL"].map((size) => (
-            <button
-              key={size}
-              type="button"
-              className="h-7 w-7 border border-line text-[10px] text-muted transition hover:border-accent hover:text-accent"
-            >
-              {size}
-            </button>
-          ))}
         </div>
       </div>
     </motion.article>
