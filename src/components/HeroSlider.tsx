@@ -44,8 +44,8 @@ export function HeroSlider() {
               pero el banner desaparecia. En ARIA, galoidrip y Nude Project la
               foto es la protagonista y el texto se acomoda a ella, no al reves.
               Aca solo se oscurece la franja baja donde apoya el titulo. */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent" />
         </motion.div>
       </AnimatePresence>
 

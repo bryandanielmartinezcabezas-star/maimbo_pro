@@ -8,15 +8,24 @@ export function EditorialBanner() {
   return (
     <section className="border-b border-line">
       <div className="grid lg:grid-cols-2">
-        <div className="relative min-h-[280px] overflow-hidden sm:min-h-[360px] lg:min-h-[420px]">
+        {/* La foto es vertical y el hueco es apaisado, asi que en reposo se ve
+            recortada y al modelo se le va la cabeza. Al acercarse, el panel
+            crece y la imagen pasa a entrar completa: el recorte deja de ser un
+            defecto y se vuelve el motivo para mirar. */}
+        <div className="group relative min-h-[280px] overflow-hidden transition-[min-height] duration-500 ease-out hover:min-h-[560px] sm:min-h-[360px] lg:min-h-[420px] lg:hover:min-h-[640px]">
           <Image
             src="/img/real/atuendo_v_tipo_banner.jpg"
-            alt="Luxury Tracksuits campaign"
+            alt="Campaña Luxury Tracksuits de MAINBO"
             fill
-            className="object-cover"
+            className="object-cover object-top transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:object-contain"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-40" />
+
+          <span className="pointer-events-none absolute right-4 top-4 z-10 rounded-full border border-white/25 bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-0 md:opacity-100">
+            Ver completa
+          </span>
+
           <div className="absolute bottom-4 left-4 z-10 sm:bottom-6 sm:left-6">
             <BrandLogo size="sm" className="sm:hidden" href={null} />
             <span className="hidden sm:inline-flex">
