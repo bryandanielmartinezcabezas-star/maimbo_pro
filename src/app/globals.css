@@ -16,6 +16,39 @@
   --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
   --font-body: "Archivo", "Helvetica Neue", sans-serif;
   --font-editorial: "Cormorant Garamond", Georgia, serif;
+
+  /* ---------------------------------------------------------------- ritmo
+     Escala de espaciado vertical. Las secciones respiran con estos valores y
+     con ninguno mas: es lo que crea los descansos visuales entre bloques.
+     Antes cada componente inventaba su propio padding y el ojo nunca
+     encontraba un punto de reposo. */
+  --space-section: clamp(4.5rem, 9vw, 8rem);   /* separacion entre secciones  */
+  --space-section-tight: clamp(3rem, 5vw, 4.5rem); /* cuando dos bloques van juntos */
+  --space-block: clamp(2rem, 4vw, 3rem);       /* titulo respecto a su contenido */
+  --space-gap: 1rem;                            /* entre piezas hermanas       */
+
+  /* ------------------------------------------------------------- tipografia
+     Una sola escala para toda la pagina. */
+  --step-eyebrow: 0.6875rem;                    /* etiquetas pequenas          */
+  --step-body: 0.9375rem;
+  --step-lead: 1.0625rem;
+  --step-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --step-h2: clamp(2.25rem, 5vw, 3.5rem);
+  --step-h1: clamp(2.75rem, 7vw, 5rem);
+
+  /* ------------------------------------------------------------------ forma
+     Un unico radio para toda la interfaz. La marca es cromo y filo, asi que
+     el borde es recto: mezclar esquinas redondas con rectas se lee como error. */
+  --radius: 0px;
+  --radius-pill: 999px;                         /* solo para contadores y chips */
+
+  /* --------------------------------------------------------------- movimiento
+     Duraciones y curva unicas. El movimiento acompana una accion del usuario,
+     no corre solo de fondo. */
+  --dur-fast: 160ms;                            /* respuesta a hover o tap     */
+  --dur-base: 280ms;                            /* transiciones de estado      */
+  --dur-slow: 620ms;                            /* entradas al hacer scroll    */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -32,6 +65,26 @@
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-editorial: var(--font-editorial);
+  --spacing-section: var(--space-section);
+  --spacing-section-tight: var(--space-section-tight);
+  --spacing-block: var(--space-block);
+  --radius-brand: var(--radius);
+}
+
+/* Ritmo vertical por defecto: toda seccion respira igual salvo que se diga
+   lo contrario. Esto es lo que produce los puntos muertos entre bloques. */
+.section {
+  padding-block: var(--space-section);
+}
+
+.section--tight {
+  padding-block: var(--space-section-tight);
+}
+
+/* Un respiro deliberado: una franja sin contenido para cortar la lectura
+   antes de un bloque importante. */
+.rest {
+  height: var(--space-section);
 }
 
 * {
@@ -136,18 +189,19 @@ button {
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.28);
-  }
-  50% {
-    box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
-  }
+/* El CTA ya no late solo. Un boton que pulsa sin parar compite con el producto
+   y deja de significar nada; ahora el brillo responde al usuario. */
+.cta-glow {
+  transition: box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
-.cta-glow {
-  animation: pulse-glow 2.6s ease-in-out infinite;
+.cta-glow:hover {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.16);
+}
+
+.cta-glow:active {
+  transform: translateY(1px);
 }
 
 .cta-chrome {
@@ -213,7 +267,8 @@ button {
 .logo-shine {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.28))
     drop-shadow(0 8px 20px rgba(0, 0, 0, 0.65));
-  animation: logo-glow 2.4s ease-in-out infinite;
+  /* Se presenta y descansa: dos pasadas, no un bucle eterno en la esquina. */
+  animation: logo-glow 2.4s var(--ease-out) 2 forwards;
 }
 
 .logo-shimmer {
@@ -229,7 +284,7 @@ button {
     transparent 70%
   );
   mix-blend-mode: soft-light;
-  animation: logo-shimmer 2.4s ease-in-out infinite;
+  animation: logo-shimmer 2.4s var(--ease-out) 2 forwards;
 }
 
 .logo-shimmer-slow {
@@ -257,7 +312,7 @@ button {
     transparent 58%
   );
   mix-blend-mode: screen;
-  animation: logo-beam 3.8s ease-in-out infinite;
+  animation: logo-beam 3.8s var(--ease-out) 1 forwards;
 }
 
 .logo-flash {
@@ -349,7 +404,7 @@ button {
   inset: -10%;
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
-  animation: logo-pulse-ring 2.4s ease-out infinite;
+  animation: logo-pulse-ring 2.4s var(--ease-out) 2 forwards;
 }
 
 .logo-ring-fast {

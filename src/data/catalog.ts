@@ -416,6 +416,29 @@ export function byCollection(collection: string, limit = 8) {
   return products.filter((p) => p.collection === collection).slice(0, limit);
 }
 
+/**
+ * Lo ultimo que entro a la tienda.
+ *
+ * Vive aca y no en la portada porque es una pregunta sobre el catalogo, no
+ * sobre como se dibuja la pagina: cambiar que cuenta como novedad no deberia
+ * obligar a abrir un componente de interfaz.
+ */
+export function newArrivals(limit = 8) {
+  return products.filter((p) => p.tag === "NEW" || p.tag === "DROP").slice(0, limit);
+}
+
+/** Lo mas vendido primero, completando con el resto del catalogo sin repetir. */
+export function bestSellers(limit = 8) {
+  const hot = products.filter((p) => p.tag === "HOT");
+  const seen = new Set(hot.map((p) => p.id));
+  const rest = products.filter((p) => !seen.has(p.id));
+  return [...hot, ...rest].slice(0, limit);
+}
+
+/**
+ * Precio en bolivianos: la tienda esta en Sucre y cobra en Bs.
+ * Antes se formateaba en soles peruanos.
+ */
 export function formatPrice(value: number) {
-  return `S/. ${value.toFixed(2)}`;
+  return `Bs ${value.toFixed(2)}`;
 }

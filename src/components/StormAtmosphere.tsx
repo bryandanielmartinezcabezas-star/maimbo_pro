@@ -327,8 +327,28 @@ export function StormAtmosphere() {
     window.addEventListener("resize", onResize);
     window.addEventListener("click", onClick);
 
+    /* La tormenta solo corre mientras se la ve. Apenas el usuario baja del
+       hero se corta el bucle: deja de gastar bateria en un Android de gama
+       media y, sobre todo, el resto de la pagina queda quieto para mirar
+       producto. Al volver arriba se reanuda. */
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !running) {
+          running = true;
+          lastStrike = performance.now();
+          raf = window.requestAnimationFrame(tick);
+        } else if (!entry.isIntersecting && running) {
+          running = false;
+          window.cancelAnimationFrame(raf);
+        }
+      },
+      { threshold: 0 },
+    );
+    observer.observe(canvas);
+
     return () => {
       running = false;
+      observer.disconnect();
       window.cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("click", onClick);
@@ -340,12 +360,12 @@ export function StormAtmosphere() {
       <canvas
         ref={canvasRef}
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0 z-[1]"
       />
       <div
         ref={flashRef}
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-[1]"
+        className="pointer-events-none absolute inset-0 z-[1]"
         style={{
           opacity: 0,
           background:
