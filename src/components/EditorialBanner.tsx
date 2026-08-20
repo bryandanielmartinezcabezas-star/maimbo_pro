@@ -10,7 +10,7 @@ export function EditorialBanner() {
       <div className="grid lg:grid-cols-2">
         <div className="relative min-h-[280px] overflow-hidden sm:min-h-[360px] lg:min-h-[420px]">
           <Image
-            src="/img/blue-black-check-shirt.webp"
+            src="/img/real/atuendo_v_tipo_banner.jpg"
             alt="Luxury Tracksuits campaign"
             fill
             className="object-cover"

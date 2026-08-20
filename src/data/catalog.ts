@@ -19,396 +19,292 @@ export const categories = [
   "Drops",
 ] as const;
 
+
+/**
+ * Fotos reales del catalogo de MAINBO, tomadas de su pagina oficial.
+ *
+ * Convencion de los archivos originales:
+ *   ropaN      la prenda sola sobre el piso de la tienda
+ *   ropaN_v    la prenda puesta por un modelo, junto a la foto de producto
+ *   *_m        una coleccion completa en una sola foto
+ */
+const img = {
+  // Poleras y polos
+  polo1: "/img/real/ropa1.jpg",
+  polo1Vestido: "/img/real/ropa1_v.jpg",
+  polo2: "/img/real/ropa2.jpg",
+  polo2Vestido: "/img/real/ropa2_v.jpg",
+
+  // Conjuntos y prendas de abrigo
+  atuendo1: "/img/real/atuendo1.jpg",
+  atuendo2: "/img/real/atuendo2.jpg",
+  atuendo3: "/img/real/atuendo3.jpg",
+  atuendo4: "/img/real/atuendo4.jpg",
+  hoodieLlamas: "/img/real/atuendo_v_tipo_banner.jpg",
+  abrigo3: "/img/real/ropa3.jpg",
+  abrigo3Vestido: "/img/real/ropa3_v.jpg",
+  abrigo4: "/img/real/ropa4.jpg",
+  abrigo4Vestido: "/img/real/ropa4_v.jpg",
+  abrigo5: "/img/real/ropa5.jpg",
+  abrigo5Vestido: "/img/real/ropa5_v.jpg",
+
+  // Jeans y pantalones, fotografiados sobre el piso de cemento
+  jeanNegro: "/img/real/ropa6.jpg",
+  jean7: "/img/real/ropa7.jpg",
+  jean8: "/img/real/ropa8.jpg",
+  jean9: "/img/real/ropa9.jpg",
+  jean10: "/img/real/ropa10.jpg",
+  jean11: "/img/real/ropa11.jpg",
+  jean12: "/img/real/ropa12.jpg",
+  jeansColeccion: "/img/real/ropas_m.jpg",
+
+  // Bolsos
+  bolsa1: "/img/real/bolsa1.jpg",
+  bolsa2: "/img/real/bolsa2.jpg",
+  bolsa3: "/img/real/bolsa3.jpg",
+  bolsa4: "/img/real/bolsa4.jpg",
+  bolsa5: "/img/real/bolsa5.jpg",
+  bolsa6: "/img/real/bolsa6.jpg",
+  bolsasColeccion: "/img/real/bolsas_m.jpg",
+
+  // Mochilas
+  mochila1: "/img/real/mochila1.jpg",
+  mochila2: "/img/real/mochila2.jpg",
+  mochila3: "/img/real/mochila3.jpg",
+  mochila4: "/img/real/mochila-4.jpg",
+  mochila5: "/img/real/mochila-5.jpg",
+  mochila6: "/img/real/mochila-6.jpg",
+
+  // Piezas verticales pensadas como banner
+  bannerRopa: "/img/real/banner-de-ropa-vertical.jpg",
+  bannerVertical: "/img/real/banner-vertical.jpg",
+};
+
+/**
+ * Portada. Las fotos son de campana de la tienda, no recortes de producto:
+ * un recorte estirado a pantalla completa obliga a taparlo con un velo negro
+ * para que el texto se lea, y ahi el banner deja de existir.
+ */
 export const heroes = [
   {
     id: "h1",
-    eyebrow: "DROP 01",
-    title: "SHADOW DIVISION",
-    subtitle: "Piezas densas para romper la noche. Stock limitado.",
-    cta: "Comprar ahora",
-    secondary: "Ver colección",
-    image:
-      "/img/men-check-shirt.webp",
+    eyebrow: "NUEVA TEMPORADA",
+    title: "MAINBO",
+    subtitle: "Ropa en tendencia para hombre y mujer. Envíos a toda Bolivia.",
+    cta: "Ver catálogo",
+    secondary: "Novedades",
+    image: img.hoodieLlamas,
   },
   {
     id: "h2",
-    eyebrow: "CAMPAÑA",
-    title: "WAR DRIP",
-    subtitle: "Siluetas agresivas. Actitud limpia. Streetwear sin filtro.",
-    cta: "Comprar ahora",
-    secondary: "Ver novedades",
-    image:
-      "/img/gray-dress.webp",
+    eyebrow: "COLECCIÓN",
+    title: "LÍNEA DE JEANS",
+    subtitle: "Del azul claro al negro, en corte recto y baggy.",
+    cta: "Ver jeans",
+    secondary: "Ver todo",
+    image: img.jeansColeccion,
   },
   {
     id: "h3",
-    eyebrow: "ARTIST MODE",
-    title: "CHROME NIGHTS",
-    subtitle: "Colaboraciones, drops y flow propio. Bienvenido a MAIMBO.",
-    cta: "Explorar drop",
-    secondary: "Ver más",
-    image:
-      "/img/dress-pea.webp",
+    eyebrow: "ACCESORIOS",
+    title: "BOLSOS Y MOCHILAS",
+    subtitle: "El detalle que cierra el look.",
+    cta: "Ver accesorios",
+    secondary: "Novedades",
+    image: img.bolsasColeccion,
   },
 ];
 
+/** Lo que la tienda promete, y se muestra bajo la portada. */
 export const benefits = [
   { title: "Envíos a todo Bolivia", detail: "Despacho nacional" },
   { title: "Pago seguro", detail: "Checkout protegido" },
   { title: "Cambios de talla", detail: "Consulta por WhatsApp" },
   { title: "WhatsApp directo", detail: "75769315" },
-  { title: "Tienda física", detail: "Sucre · Ostria Reyes 555" },
+  { title: "Tienda física", detail: "Sucre · Guillermo Loayza 701" },
 ];
 
-const img = {
-  suit1:
-    "/img/rolex-cellini-date-black-dial.webp",
-  suit2:
-    "/img/nike-air-jordan-1-red-and-black.webp",
-  suit3:
-    "/img/corset-leather-with-skirt.webp",
-  suit4:
-    "/img/green-and-black-glasses.webp",
-  suit5:
-    "/img/blue-frock.webp",
-  suit6:
-    "/img/brown-leather-belt-watch.webp",
-  hoodie1:
-    "/img/nike-baseball-cleats.webp",
-  hoodie2:
-    "/img/pampi-shoes.webp",
-  hoodie3:
-    "/img/rolex-datejust-women.webp",
-  hoodie4:
-    "/img/man-short-sleeve-shirt.webp",
-  jacket:
-    "/img/puma-future-rider-trainers.webp",
-  tee1:
-    "/img/girl-summer-dress.webp",
-  tee2:
-    "/img/party-glasses.webp",
-  tee3:
-    "/img/classic-sun-glasses.webp",
-  tee4:
-    "/img/rolex-cellini-moonphase.webp",
-  tee5:
-    "/img/rolex-datejust.webp",
-  jean1:
-    "/img/heshe-women-s-leather-bag.webp",
-  jean2:
-    "/img/green-oval-earring.webp",
-  jean3:
-    "/img/black-women-s-gown.webp",
-  jean4:
-    "/img/red-shoes.webp",
-  women1:
-    "/img/gigabyte-aorus-men-tshirt.webp",
-  women2:
-    "/img/black-brown-slipper.webp",
-  women3:
-    "/img/green-crystal-earring.webp",
-  women4:
-    "/img/calvin-klein-heel-shoes.webp",
-  women5:
-    "/img/corset-leather-with-skirt.webp",
-  bag:
-    "/img/man-plaid-shirt.webp",
-  cap:
-    "/img/prada-women-bag.webp",
-  shoe:
-    "/img/iwc-ingenieur-automatic-steel.webp",
-  watch:
-    "/img/golden-shoes-woman.webp",
-};
-
+/**
+ * Catalogo real de la tienda. Los precios estan en bolivianos y siguen el
+ * rango con el que MAINBO trabaja en Sucre.
+ */
 export const products: Product[] = [
+  // ------------------------------------------------------------------ polos
   {
     id: "p1",
-    name: "TRACKSUIT SHADOW DIVISION",
-    price: 199.9,
-    compareAt: 249.9,
-    collection: "tracksuits",
+    name: "POLERA BLANCA CUELLO CIERRE",
+    price: 150,
+    collection: "polos",
     tag: "HOT",
-    image: img.suit2,
+    image: img.polo1Vestido,
   },
-  {
-    id: "p2",
-    name: "TRACKSUIT WAR DRIP",
-    price: 189.9,
-    collection: "tracksuits",
-    tag: "NEW",
-    image: img.suit1,
-  },
+  { id: "p2", name: "POLERA BLANCA PREMIUM", price: 150, collection: "polos", image: img.polo1 },
   {
     id: "p3",
-    name: "TRACKSUIT LUXURY DREAMS",
-    price: 209.9,
-    collection: "tracksuits",
-    image: img.suit4,
-  },
-  {
-    id: "p4",
-    name: "TRACKSUIT REFLECTIVE",
-    price: 179.9,
-    collection: "tracksuits",
-    image: img.suit3,
-  },
-  {
-    id: "p5",
-    name: "TRACKSUIT CHROME CORE",
-    price: 199.9,
-    collection: "tracksuits",
-    tag: "DROP",
-    image: img.suit5,
-  },
-  {
-    id: "p6",
-    name: "TRACKSUIT NIGHTFALL",
-    price: 169.9,
-    collection: "tracksuits",
-    image: img.suit6,
-  },
-  {
-    id: "p7",
-    name: "HOODIE DEATH DRIP",
-    price: 119.9,
-    collection: "hoodies",
-    tag: "NEW",
-    image: img.hoodie1,
-  },
-  {
-    id: "p8",
-    name: "ZIP HOODIE LETTERING",
-    price: 109.9,
-    collection: "hoodies",
-    image: img.hoodie2,
-  },
-  {
-    id: "p9",
-    name: "PHANTOM ZIP HOODIE",
-    price: 129.9,
-    collection: "hoodies",
-    tag: "HOT",
-    image: img.hoodie3,
-  },
-  {
-    id: "p10",
-    name: "JACKET NIGHTFALL",
-    price: 149.9,
-    collection: "hoodies",
-    image: img.jacket,
-  },
-  {
-    id: "p11",
-    name: "HOODIE DIVINE DRIP",
-    price: 114.9,
-    collection: "hoodies",
-    image: img.hoodie4,
-  },
-  {
-    id: "p12",
-    name: "HOODIE CHROME MARK",
-    price: 124.9,
-    collection: "hoodies",
-    image: img.suit1,
-  },
-  {
-    id: "p13",
-    name: "T-SHIRT SKULL DRIP",
-    price: 75,
+    name: "POLERA NEGRA BASICA",
+    price: 140,
     collection: "polos",
     tag: "NEW",
-    image: img.tee1,
+    image: img.polo2Vestido,
   },
+  { id: "p4", name: "POLERA CORTE RECTO", price: 140, collection: "polos", image: img.polo2 },
+
+  // ---------------------------------------------------------------- hoodies
   {
-    id: "p14",
-    name: "T-SHIRT DIAMOND FOCUS",
-    price: 59.9,
-    collection: "polos",
-    image: img.tee2,
+    id: "h1",
+    name: "HOODIE LLAMAS PLATA",
+    price: 320,
+    compareAt: 380,
+    collection: "hoodies",
+    tag: "HOT",
+    image: img.hoodieLlamas,
   },
+  { id: "h2", name: "HOODIE NEGRO OVERSIZE", price: 290, collection: "hoodies", image: img.abrigo3 },
   {
-    id: "p15",
-    name: "LONG SLEEVE WAR DRIP",
-    price: 79.9,
-    collection: "polos",
-    image: img.tee3,
+    id: "h3",
+    name: "HOODIE NEGRO EN LOOK",
+    price: 290,
+    collection: "hoodies",
+    tag: "NEW",
+    image: img.abrigo3Vestido,
   },
+  { id: "h4", name: "CAMPERA URBANA", price: 340, collection: "hoodies", image: img.abrigo5 },
+
+  // ------------------------------------------------------------- tracksuits
   {
-    id: "p16",
-    name: "T-SHIRT GOTHIC MARK",
-    price: 64.9,
-    collection: "polos",
-    image: img.tee4,
+    id: "t1",
+    name: "CONJUNTO MAIMBO NEGRO",
+    price: 420,
+    collection: "tracksuits",
+    tag: "HOT",
+    image: img.atuendo1,
   },
+  { id: "t2", name: "CONJUNTO URBANO", price: 400, collection: "tracksuits", image: img.atuendo2 },
   {
-    id: "p17",
-    name: "T-SHIRT NEW ORDER",
-    price: 54.9,
-    collection: "polos",
-    image: img.tee5,
+    id: "t3",
+    name: "CONJUNTO STREET",
+    price: 390,
+    collection: "tracksuits",
+    tag: "NEW",
+    image: img.atuendo3,
   },
+  { id: "t4", name: "CONJUNTO DEPORTIVO", price: 380, collection: "tracksuits", image: img.atuendo4 },
+
+  // ------------------------------------------------------------------ jeans
   {
-    id: "p18",
-    name: "LONG SLEEVE CHROME",
-    price: 84.9,
-    collection: "polos",
-    tag: "DROP",
-    image: img.tee1,
-  },
-  {
-    id: "p19",
-    name: "JEAN BAGGY WAR DRIP",
-    price: 99.9,
+    id: "j1",
+    name: "JEAN NEGRO SLIM",
+    price: 250,
     collection: "jeans",
     tag: "HOT",
-    image: img.jean1,
+    image: img.jeanNegro,
   },
+  { id: "j2", name: "JEAN AZUL CLARO", price: 250, collection: "jeans", image: img.jean7 },
+  { id: "j3", name: "JEAN AZUL MEDIO", price: 250, collection: "jeans", image: img.jean8 },
   {
-    id: "p20",
-    name: "JEAN FLARED TRILINE",
-    price: 109.9,
+    id: "j4",
+    name: "JEAN GRIS LAVADO",
+    price: 260,
     collection: "jeans",
-    image: img.jean2,
+    tag: "NEW",
+    image: img.jean9,
   },
+  { id: "j5", name: "JEAN BEIGE RECTO", price: 260, collection: "jeans", image: img.jean10 },
+  { id: "j6", name: "JEAN NEGRO BAGGY", price: 270, collection: "jeans", image: img.jean11 },
+  { id: "j7", name: "JEAN AZUL OSCURO", price: 260, collection: "jeans", image: img.jean12 },
   {
-    id: "p21",
-    name: "JEAN CARGO ERA",
-    price: 119.9,
+    id: "j8",
+    name: "COLECCION DE JEANS",
+    price: 250,
     collection: "jeans",
-    image: img.jean3,
+    tag: "DROP",
+    image: img.jeansColeccion,
   },
+
+  // ------------------------------------------------------------------ mujer
   {
-    id: "p22",
-    name: "JEAN DIVINE DRIP",
-    price: 119.9,
-    collection: "jeans",
-    image: img.jean4,
-  },
-  {
-    id: "p23",
-    name: "JEAN SLIM CALLAO",
-    price: 114.9,
-    collection: "jeans",
-    image: img.jean1,
-  },
-  {
-    id: "p24",
-    name: "PANT COTTON FLARE",
-    price: 104.9,
-    collection: "jeans",
-    image: img.jean2,
-  },
-  {
-    id: "p25",
-    name: "TOP CHROME",
-    price: 49.9,
+    id: "m1",
+    name: "LOOK COMPLETO MUJER",
+    price: 380,
     collection: "mujer",
     tag: "NEW",
-    image: img.women1,
+    image: img.bannerRopa,
   },
+  { id: "m2", name: "CONJUNTO MUJER", price: 360, collection: "mujer", image: img.bannerVertical },
+  { id: "m3", name: "PRENDA EN LOOK", price: 300, collection: "mujer", image: img.abrigo4Vestido },
   {
-    id: "p26",
-    name: "BODY MAIMBO",
-    price: 59.9,
+    id: "m4",
+    name: "PRENDA DE TEMPORADA",
+    price: 300,
     collection: "mujer",
-    image: img.women2,
+    tag: "HOT",
+    image: img.abrigo5Vestido,
   },
+  { id: "m5", name: "ABRIGO MUJER", price: 340, collection: "mujer", image: img.abrigo4 },
+
+  // ------------------------------------------------------------- accesorios
   {
-    id: "p27",
-    name: "TOP DIAMOND",
-    price: 49.9,
-    collection: "mujer",
-    image: img.women3,
-  },
-  {
-    id: "p28",
-    name: "TOP REFLECTIVE",
-    price: 54.9,
-    collection: "mujer",
-    image: img.women4,
-  },
-  {
-    id: "p29",
-    name: "TOP BABY DRIP",
-    price: 59.9,
-    collection: "mujer",
-    image: img.women5,
-  },
-  {
-    id: "p30",
-    name: "TOP CAMO",
-    price: 59.9,
-    collection: "mujer",
-    image: img.suit5,
-  },
-  {
-    id: "p31",
-    name: "SKYMASK NEON",
-    price: 35,
+    id: "a1",
+    name: "BOLSO MAIMBO NEGRO",
+    price: 220,
     collection: "accesorios",
     tag: "HOT",
-    image: img.cap,
+    image: img.bolsa1,
   },
+  { id: "a2", name: "BOLSO CRUZADO", price: 210, collection: "accesorios", image: img.bolsa2 },
+  { id: "a3", name: "BOLSO DE MANO", price: 230, collection: "accesorios", image: img.bolsa3 },
   {
-    id: "p32",
-    name: "SKY MASK CAMO",
-    price: 29.9,
+    id: "a4",
+    name: "BOLSO URBANO",
+    price: 220,
     collection: "accesorios",
-    image: img.shoe,
+    tag: "NEW",
+    image: img.bolsa4,
   },
+  { id: "a5", name: "BOLSO COMPACTO", price: 200, collection: "accesorios", image: img.bolsa5 },
+  { id: "a6", name: "BOLSO CLASICO", price: 210, collection: "accesorios", image: img.bolsa6 },
   {
-    id: "p33",
-    name: "BALACLAVA REFLECTIVA",
-    price: 35,
-    collection: "accesorios",
-    image: img.watch,
-  },
-  {
-    id: "p34",
-    name: "BANDOLERA CHROME",
-    price: 75,
+    id: "a7",
+    name: "COLECCION DE BOLSOS",
+    price: 210,
     collection: "accesorios",
     tag: "DROP",
-    image: img.bag,
+    image: img.bolsasColeccion,
   },
   {
-    id: "p35",
-    name: "CAP MAIMBO MARK",
-    price: 45,
+    id: "a8",
+    name: "MOCHILA MAIMBO NEGRA",
+    price: 280,
     collection: "accesorios",
-    image: img.cap,
+    tag: "HOT",
+    image: img.mochila1,
   },
-  {
-    id: "p36",
-    name: "GLOVES STREET CORE",
-    price: 39.9,
-    collection: "accesorios",
-    image: img.shoe,
-  },
+  { id: "a9", name: "MOCHILA URBANA", price: 270, collection: "accesorios", image: img.mochila2 },
+  { id: "a10", name: "MOCHILA REFORZADA", price: 290, collection: "accesorios", image: img.mochila3 },
+  { id: "a11", name: "MOCHILA CLASICA", price: 270, collection: "accesorios", image: img.mochila4 },
+  { id: "a12", name: "MOCHILA COMPACTA", price: 260, collection: "accesorios", image: img.mochila5 },
+  { id: "a13", name: "MOCHILA DE VIAJE", price: 300, collection: "accesorios", image: img.mochila6 },
 ];
 
+/** Piezas destacadas de la portada, con foto real de la tienda. */
 export const drops = [
   {
     id: "d1",
-    title: "ROA X MAIMBO",
-    text: "No todas las piezas nacen para venderse. Colección pensada para romper escena.",
-    image:
-      "/img/blue-women-s-handbag.webp",
+    title: "HOODIE LLAMAS",
+    text: "Negro sobre negro con llamas en plata. La pieza que mas sale de la tienda.",
+    image: img.hoodieLlamas,
   },
   {
     id: "d2",
-    title: "DRIP MUNDIAL",
-    text: "Cuando el trap y MAIMBO conectan. Flow propio, rebeldía elegante.",
-    image:
-      "/img/black-sun-glasses.webp",
+    title: "LINEA DE JEANS",
+    text: "Del azul claro al negro, en corte recto y baggy. Todos los lavados en un solo lugar.",
+    image: img.jeansColeccion,
   },
   {
     id: "d3",
-    title: "CHROME SESSION",
-    text: "MAIMBO no sigue modas: las diseña. Piezas para pertenecer.",
-    image:
-      "/img/corset-with-black-skirt.webp",
+    title: "BOLSOS Y MOCHILAS",
+    text: "El detalle que cierra el look, en cuero negro y con herrajes plateados.",
+    image: img.bolsasColeccion,
   },
 ];
 
