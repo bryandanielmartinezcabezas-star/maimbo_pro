@@ -4,23 +4,14 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { heroes } from "@/data/catalog";
-import { BrandLogo } from "@/components/BrandLogo";
 
 export function HeroSlider() {
   const [index, setIndex] = useState(0);
-  const [boltKey, setBoltKey] = useState(0);
 
   useEffect(() => {
     const id = window.setInterval(() => {
       setIndex((prev) => (prev + 1) % heroes.length);
     }, 5600);
-    return () => window.clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setBoltKey((k) => k + 1);
-    }, 3200);
     return () => window.clearInterval(id);
   }, []);
 
@@ -48,53 +39,25 @@ export function HeroSlider() {
             className="object-cover object-[center_20%] sm:object-center"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/40 sm:via-black/82 sm:to-black/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/60" />
+          {/* El velo se ancla abajo y deja la imagen a la vista.
+              Antes cubria el ancho entero al 85% de negro: el texto se leia,
+              pero el banner desaparecia. En ARIA, galoidrip y Nude Project la
+              foto es la protagonista y el texto se acomoda a ella, no al reves.
+              Aca solo se oscurece la franja baja donde apoya el titulo. */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      <AnimatePresence>
-        <motion.svg
-          key={boltKey}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-0 z-[2] hidden h-full w-full opacity-80 sm:block"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1, 0.2, 0.9, 0] }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.55, times: [0, 0.12, 0.28, 0.4, 1] }}
-          aria-hidden
-        >
-          <motion.path
-            d="M58 0 L46 38 L56 38 L40 100 L62 48 L50 48 Z"
-            fill="url(#boltGrad)"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: [0, 1, 0.6] }}
-            transition={{ duration: 0.35 }}
-            style={{ filter: "drop-shadow(0 0 12px rgba(255,255,255,0.8))" }}
-          />
-          <defs>
-            <linearGradient id="boltGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fff" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#bdbdbd" stopOpacity="0.35" />
-            </linearGradient>
-          </defs>
-        </motion.svg>
-      </AnimatePresence>
+      {/* El rayo cruzaba la foto de punta a punta y partia el producto al
+          medio. La marca ya se presenta en la barra superior; el banner es
+          para la prenda. */}
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-4 pb-20 pt-28 sm:min-h-[92vh] sm:px-4 sm:pb-16 sm:pt-24 lg:justify-center lg:px-6 lg:pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-4 flex w-full max-w-full justify-start sm:mb-6"
-        >
-          <BrandLogo size="md" className="sm:hidden" href={null} priority />
-          <span className="hidden sm:inline-flex">
-            <BrandLogo size="lg" href={null} priority />
-          </span>
-        </motion.div>
-
+      {/* El contenido se apoya abajo a la izquierda, sobre la franja oscura,
+          y deja libre el resto de la imagen. Es la posicion que usan galoidrip
+          y Nude Project: el titulo acompana la foto en vez de taparla.
+          Tampoco se repite el logo, que ya vive en la barra superior. */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-4 pb-20 pt-28 sm:min-h-[92vh] sm:px-4 sm:pb-20 sm:pt-24 lg:px-6 lg:pb-24">
         <motion.p
           key={`${slide.id}-eye`}
           initial={{ y: 24, opacity: 0 }}
@@ -144,14 +107,9 @@ export function HeroSlider() {
             {slide.secondary}
           </motion.a>
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.55 }}
-          className="mt-5 max-w-[18rem] text-[10px] uppercase leading-relaxed tracking-[0.16em] text-muted sm:mt-6 sm:max-w-none sm:text-[11px] sm:tracking-[0.2em]"
-        >
-          Streetwear · Sucre · Envíos a Bolivia · WhatsApp
-        </motion.p>
+        {/* La franja "Streetwear · Sucre · Envios" se saco de aca: ya esta en
+            la barra de anuncios de arriba y repetirla sumaba una septima linea
+            de texto sobre la foto. */}
       </div>
 
       <div className="absolute bottom-4 left-4 z-10 flex gap-2 sm:bottom-6 sm:left-auto sm:right-4 lg:right-8">
