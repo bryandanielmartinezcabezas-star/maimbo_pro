@@ -28,18 +28,21 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer id="footer" className="bg-black pt-14 pb-8">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-[1.3fr_1fr_1fr] lg:px-6">
+    <footer id="footer" className="safe-bottom bg-black pt-10 pb-8 sm:pt-14">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:gap-10 md:grid-cols-[1.3fr_1fr_1fr] lg:px-6">
         <div>
-          <BrandLogo size="lg" />
-          <p className="editorial mt-4 max-w-sm text-lg leading-snug text-chrome">
+          <BrandLogo size="md" className="sm:hidden" />
+          <span className="hidden sm:inline-flex">
+            <BrandLogo size="lg" />
+          </span>
+          <p className="editorial mt-4 max-w-sm text-base leading-snug text-chrome sm:text-lg">
             MAIMBO <span className="text-accent">|</span> Vende Estilo
           </p>
           <p className="mt-3 max-w-sm text-sm text-muted">
             Local en Sucre — Ostria Reyes 555. Enviamos a todo Bolivia.
           </p>
           <form
-            className="mt-6 flex max-w-md gap-2"
+            className="mt-6 flex max-w-md flex-col gap-2 sm:flex-row"
             onSubmit={(e) => e.preventDefault()}
           >
             <label className="sr-only" htmlFor="newsletter">
@@ -54,7 +57,7 @@ export function Footer() {
             />
             <button
               type="submit"
-              className="display shrink-0 bg-accent px-4 py-3 text-lg text-black transition hover:bg-white"
+              className="cta-chrome display shrink-0 px-4 py-3 text-lg transition"
             >
               Unirme
             </button>

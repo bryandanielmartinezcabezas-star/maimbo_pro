@@ -11,7 +11,10 @@ export function WhatsAppFab() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 18 }}
-      className="fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-accent text-black shadow-[0_0_30px_rgba(184,255,46,0.35)] transition hover:scale-105 hover:bg-white"
+      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 z-40 grid h-12 w-12 place-items-center rounded-full text-black shadow-[0_0_30px_rgba(255,255,255,0.25)] transition hover:scale-105 hover:brightness-110 sm:right-5 sm:h-14 sm:w-14"
+      style={{
+        background: "linear-gradient(135deg, #fff 0%, #c8c8c8 50%, #8a8a8a 100%)",
+      }}
       aria-label="WhatsApp"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-current" aria-hidden>

@@ -22,8 +22,8 @@ const tiles = [
 
 export function CategoryTiles() {
   return (
-    <section className="border-b border-line bg-bg-soft py-14 lg:py-20">
-      <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 lg:px-6">
+    <section className="border-b border-line bg-bg-soft py-10 sm:py-14 lg:py-20">
+      <div className="mx-auto grid max-w-7xl gap-3 px-4 sm:grid-cols-2 sm:gap-4 lg:px-6">
         {tiles.map((tile, i) => (
           <motion.a
             key={tile.title}
@@ -32,7 +32,7 @@ export function CategoryTiles() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.08 }}
-            className="group relative min-h-[320px] overflow-hidden"
+            className="group relative min-h-[240px] overflow-hidden sm:min-h-[320px]"
           >
             <Image
               src={tile.image}

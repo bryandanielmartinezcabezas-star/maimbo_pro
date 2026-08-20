@@ -8,18 +8,18 @@ export function AnnouncementBar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="relative z-40 border-b border-line bg-accent text-black"
+      className="announcement-chrome relative z-40 border-b border-white/10"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.18em] sm:text-xs">
-        <span>Envío gratis desde S/. 199</span>
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-3 py-1.5 text-center text-[10px] font-semibold uppercase tracking-[0.12em] sm:gap-3 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.18em]">
+        <span>Envío a todo Bolivia</span>
         <span className="hidden sm:inline" aria-hidden>
           ·
         </span>
-        <span className="hidden sm:inline">Cambios de talla en 7 días</span>
+        <span className="hidden sm:inline">Sucre · Ostria Reyes 555</span>
         <span className="hidden md:inline" aria-hidden>
           ·
         </span>
-        <span className="hidden md:inline">Pago seguro · Atención WhatsApp</span>
+        <span className="hidden md:inline">WhatsApp 75769315</span>
       </div>
     </motion.div>
   );
