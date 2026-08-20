@@ -59,14 +59,10 @@ export const SHOP_SECTIONS: ShopSection[] = [
     collection: "hoodies",
     layout: "carousel",
   },
-  {
-    id: "mujer",
-    navLabel: "Mujer",
-    title: "MUJER",
-    subtitle: "Tops y bodies con DNA MAIMBO.",
-    collection: "mujer",
-    layout: "grid",
-  },
+  /* La seccion Mujer queda fuera hasta que la tienda tenga fotos propias de
+     esa linea: mostrarla con imagenes de otra categoria le resta credibilidad
+     al catalogo entero. Para reponerla basta con volver a agregar esta entrada;
+     el menu y los anclajes se acomodan solos. */
   {
     id: "jeans",
     navLabel: "Jeans",

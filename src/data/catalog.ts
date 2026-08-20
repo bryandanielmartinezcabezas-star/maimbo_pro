@@ -109,11 +109,14 @@ export const heroes = [
   {
     id: "h2",
     eyebrow: "COLECCIÓN",
-    title: "LÍNEA DE JEANS",
-    subtitle: "Del azul claro al negro, en corte recto y baggy.",
-    cta: "Ver jeans",
-    secondary: "Ver todo",
-    image: img.jeansColeccion,
+    title: "STREETWEAR",
+    subtitle: "Conjuntos, hoodies y jeans para romper la calle.",
+    cta: "Ver catálogo",
+    secondary: "Novedades",
+    /* Foto apaisada de campana. La de la linea de jeans se veia mal aca: era
+       una toma cenital vertical y al estirarla a pantalla completa perdia
+       definicion. Como ficha de producto sigue estando bien. */
+    image: "/img/real/banner-callejon.jpg",
   },
   {
     id: "h3",
@@ -239,21 +242,22 @@ export const products: Product[] = [
     image: img.jeansColeccion,
   },
 
-  // ------------------------------------------------------------------ mujer
+  /* Estas prendas estaban catalogadas como mujer pero las fotos son de otra
+     linea. Pasan a conjuntos, que es lo que muestran de verdad. */
   {
-    id: "m1",
-    name: "LOOK COMPLETO MUJER",
+    id: "t5",
+    name: "CONJUNTO ESTAMPADO",
     price: 380,
-    collection: "mujer",
+    collection: "tracksuits",
     tag: "NEW",
     image: img.bannerRopa,
   },
-  { id: "m2", name: "CONJUNTO MUJER", price: 360, collection: "mujer", image: img.bannerVertical },
+  { id: "t6", name: "CONJUNTO NEGRO", price: 360, collection: "tracksuits", image: img.bannerVertical },
   {
-    id: "m3",
+    id: "h5",
     name: "PRENDA DE TEMPORADA",
     price: 300,
-    collection: "mujer",
+    collection: "hoodies",
     tag: "HOT",
     image: img.abrigo4Vestido,
     hoverImage: img.abrigo4,
