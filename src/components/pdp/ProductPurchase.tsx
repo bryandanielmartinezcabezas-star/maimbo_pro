@@ -4,6 +4,16 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatPrice } from "@/data/catalog";
 import { siteConfig } from "@/lib/seo";
+import { PaymentQr } from "@/components/pdp/PaymentQr";
+
+/** Marca de QR dibujada a mano: son cuatro rectangulos, no hace falta libreria. */
+function QrGlyph() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zM13 3h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zM13 13h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3zm5 0h3v3h-3v-3z" />
+    </svg>
+  );
+}
 
 interface ProductPurchaseProps {
   name: string;
@@ -27,17 +37,28 @@ export function ProductPurchase({ name, price, sizes, singleSize = false }: Prod
   const [qty, setQty] = useState(1);
   const [warning, setWarning] = useState("");
   const [added, setAdded] = useState(false);
+  const [qrOpen, setQrOpen] = useState(false);
 
   const total = price * qty;
 
+  /** Sin talla no se puede despachar, asi que se avisa antes de seguir. */
+  const requireSize = () => {
+    if (size) return true;
+    setWarning("Elegí una talla para continuar.");
+    return false;
+  };
+
   const addToCart = () => {
-    if (!size) {
-      setWarning("Elegí una talla para continuar.");
-      return;
-    }
+    if (!requireSize()) return;
     setWarning("");
     setAdded(true);
     window.setTimeout(() => setAdded(false), 2600);
+  };
+
+  const payWithQr = () => {
+    if (!requireSize()) return;
+    setWarning("");
+    setQrOpen(true);
   };
 
   /* En Bolivia el pedido se cierra por WhatsApp, asi que el mensaje va armado
@@ -119,15 +140,36 @@ export function ProductPurchase({ name, price, sizes, singleSize = false }: Prod
         <button type="button" onClick={addToCart} className="cta-chrome display py-4 text-xl">
           Añadir al carrito
         </button>
+
+        {/* El QR es la forma en que se cobra en Bolivia, asi que va arriba del
+            resto y no escondido como una alternativa. */}
+        <button
+          type="button"
+          onClick={payWithQr}
+          className="display flex items-center justify-center gap-3 border border-accent/50 py-4 text-xl text-accent transition hover:bg-accent hover:text-black"
+        >
+          <QrGlyph />
+          Pago por QR
+        </button>
+
         <a
           href={whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           className="display border border-line py-4 text-center text-xl text-text transition hover:border-accent hover:text-accent"
         >
-          Comprar por WhatsApp
+          Consultar por WhatsApp
         </a>
       </div>
+
+      <PaymentQr
+        open={qrOpen}
+        onClose={() => setQrOpen(false)}
+        productName={name}
+        size={size}
+        qty={qty}
+        total={total}
+      />
 
       <AnimatePresence>
         {added && (
