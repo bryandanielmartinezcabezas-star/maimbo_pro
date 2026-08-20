@@ -1,16 +1,43 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { categories } from "@/data/catalog";
 import { BrandLogo } from "@/components/BrandLogo";
+
+/** Cerca del inicio la barra siempre se ve: esconderla ahi se siente como un
+ *  salto y no gana pantalla. */
+const TOP_ZONE = 140;
+/** Movimiento minimo para reaccionar, para que un scroll tembloroso en el
+ *  celular no haga parpadear la barra. */
+const THRESHOLD = 8;
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [cartCount] = useState(2);
+  const [hidden, setHidden] = useState(false);
+
+  const { scrollY } = useScroll();
+  const previous = useRef(0);
+
+  /* Bajar esconde la barra y devuelve la pantalla completa al producto; subir
+     la trae de vuelta, porque volver hacia arriba ya es intencion de navegar.
+     El scroll se lee con un evento de Motion en vez de estado por pixel, para
+     no re-renderizar el arbol mientras el usuario baja. */
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const delta = y - previous.current;
+    if (Math.abs(delta) < THRESHOLD) return;
+    previous.current = y;
+    if (open) return; // con el menu movil abierto la barra se queda quieta
+    setHidden(y > TOP_ZONE && delta > 0);
+  });
 
   return (
-    <header className="safe-top sticky top-0 z-40 border-b border-line/80 bg-bg/90 backdrop-blur-xl">
+    <motion.header
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+      className="safe-top sticky top-0 z-40 border-b border-line/80 bg-bg/90 backdrop-blur-xl"
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2 sm:gap-4 sm:px-4 lg:px-6">
         <button
           type="button"
@@ -100,6 +127,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }
