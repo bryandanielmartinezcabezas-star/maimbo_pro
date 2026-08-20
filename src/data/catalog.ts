@@ -15,6 +15,8 @@ export type Product = {
    * las dos preguntas que se hace quien compra, sin abrir el producto.
    */
   hoverImage?: string;
+  /** Texto de la ficha. Si falta, se usa el de su linea. */
+  description?: string;
 };
 
 export const categories = [
@@ -419,4 +421,51 @@ export function bestSellers(limit = 8) {
  */
 export function formatPrice(value: number) {
   return `Bs ${value.toFixed(2)}`;
+}
+
+export function findProduct(id: string) {
+  return products.find((p) => p.id === id);
+}
+
+/**
+ * Otras piezas de la misma coleccion, sin repetir la que se esta viendo.
+ * Si la coleccion es corta se completa con el resto del catalogo, para que la
+ * fila de recomendados nunca quede a medias.
+ */
+export function relatedTo(product: Product, limit = 8) {
+  const sameCollection = products.filter(
+    (p) => p.collection === product.collection && p.id !== product.id,
+  );
+  const rest = products.filter(
+    (p) => p.collection !== product.collection && p.id !== product.id,
+  );
+  return [...sameCollection, ...rest].slice(0, limit);
+}
+
+/** Tallas segun el tipo de pieza: un bolso no se vende por talla. */
+export function sizesFor(product: Product): string[] {
+  if (product.collection === "accesorios") return ["Única"];
+  if (product.collection === "jeans") return ["28", "30", "32", "34", "36"];
+  return ["S", "M", "L", "XL"];
+}
+
+const DESCRIPTIONS: Record<string, string> = {
+  polos: "Polera de corte recto en tela liviana. Cae limpia, sin marcar, y aguanta el uso diario.",
+  hoodies:
+    "Sudadera de algodón denso con estampado en frente y espalda. Abriga de verdad y no pierde forma con el lavado.",
+  tracksuits:
+    "Conjunto completo de chaqueta y pantalón. Tela con caída, costuras reforzadas y corte holgado.",
+  jeans:
+    "Jean de mezclilla firme con lavado propio. Corte recto en la pierna y cintura que no se abre al sentarse.",
+  accesorios:
+    "Pieza en material resistente con herrajes metálicos. Pensada para el uso diario, no para la vitrina.",
+};
+
+/** Descripcion de la ficha. Si la pieza no trae una propia, usa la de su linea. */
+export function descriptionFor(product: Product): string {
+  return (
+    product.description ??
+    DESCRIPTIONS[product.collection] ??
+    "Pieza del catálogo MAINBO, seleccionada para la temporada."
+  );
 }
