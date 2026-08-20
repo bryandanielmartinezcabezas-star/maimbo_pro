@@ -1,0 +1,50 @@
+name: CI
+
+# Corre en el trabajo diario sobre develop y, sobre todo, antes de que algo
+# entre a main: main es lo que ve el cliente, asi que nada llega ahi sin pasar.
+on:
+  push:
+    branches: [develop, main]
+  pull_request:
+    branches: [main, develop]
+
+# Si se pushea dos veces seguidas, cancela la corrida vieja en vez de gastar
+# minutos revisando un commit que ya quedo atras.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Lint, tipos y build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Traer el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Se usa install y no ci a proposito: el lock se mantiene desde Windows,
+      # donde npm no registra los binarios nativos de Linux que piden
+      # lightningcss y sharp, y npm ci se niega a instalar con ese faltante.
+      # Cuando el lock se regenere desde Linux o WSL, conviene volver a npm ci,
+      # que es mas estricto porque instala exactamente las versiones fijadas.
+      - name: Instalar dependencias
+        run: npm install --no-audit --no-fund
+
+      - name: Revisar estilo de codigo
+        run: npx eslint .
+
+      - name: Revisar tipos
+        run: npx tsc --noEmit
+
+      # El paso que de verdad protege la demo: si el build falla, Vercel tampoco
+      # habria podido publicar, y nos enteramos aca en vez de frente al cliente.
+      - name: Compilar para produccion
+        run: npm run build
