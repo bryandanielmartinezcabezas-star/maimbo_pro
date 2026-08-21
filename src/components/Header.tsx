@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { NAV_LINKS } from "@/config/sections";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -54,9 +55,14 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [cartCount] = useState(2);
   const [hidden, setHidden] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { scrollY } = useScroll();
   const previous = useRef(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const delta = y - previous.current;
@@ -68,10 +74,12 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("menu-drawer-open");
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
+      document.documentElement.classList.remove("menu-drawer-open");
     };
   }, [open]);
 
@@ -95,78 +103,14 @@ export function Header() {
     }, open ? 340 : 0);
   };
 
-  return (
-    <>
-      <motion.header
-        animate={{ y: hidden && !open ? "-100%" : "0%" }}
-        transition={{ duration: 0.28, ease: easeOut }}
-        className={`safe-top sticky top-0 z-40 border-b border-line/80 bg-bg/90 backdrop-blur-xl transition-opacity duration-200 ${
-          open ? "pointer-events-none opacity-0 lg:pointer-events-auto lg:opacity-100" : ""
-        }`}
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-2 lg:px-6">
-          <motion.button
-            type="button"
-            className="relative grid h-11 w-11 shrink-0 place-items-center border border-line/80 text-chrome touch-manipulation transition hover:border-accent hover:text-accent lg:hidden"
-            aria-label="Abrir menú"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen(true)}
-            whileTap={{ scale: 0.94 }}
-          >
-            <HamburgerIcon open={false} />
-          </motion.button>
-
-          <div className="flex min-w-0 flex-1 justify-center lg:flex-none lg:justify-start">
-            <BrandLogo size="sm" className="sm:hidden" priority />
-            <span className="hidden sm:inline-flex">
-              <BrandLogo size="md" priority />
-            </span>
-          </div>
-
-          <nav
-            className="hidden max-w-[min(52vw,34rem)] items-center gap-3 overflow-x-auto xl:gap-5 lg:flex"
-            aria-label="Categorías"
-          >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={goToSection(link.id)}
-                className="shrink-0 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em] text-muted transition hover:text-accent xl:text-[11px] xl:tracking-[0.16em]"
-              >
-                {link.navLabel}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
-            <button
-              type="button"
-              className="hidden text-[11px] font-semibold uppercase tracking-[0.16em] text-muted transition hover:text-text md:inline"
-              aria-label="Buscar"
-            >
-              Buscar
-            </button>
-            <button
-              type="button"
-              className="relative min-h-10 border border-line px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] touch-manipulation transition hover:border-accent hover:text-accent sm:min-h-0 sm:px-3 sm:py-2 sm:text-[11px]"
-              aria-label="Carrito"
-            >
-              Bolsa
-              <span className="absolute -right-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-white to-[#b0b0b0] text-[10px] font-bold text-black">
-                {cartCount}
-              </span>
-            </button>
-          </div>
-        </div>
-      </motion.header>
-
+  const drawer =
+    mounted &&
+    createPortal(
       <AnimatePresence>
         {open && (
           <motion.div
             key="mobile-nav-root"
-            className="fixed inset-0 z-[80] lg:hidden"
+            className="fixed inset-0 z-[200] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -175,7 +119,7 @@ export function Header() {
             <motion.button
               type="button"
               aria-label="Cerrar menú"
-              className="absolute inset-0 bg-black/80 backdrop-blur-md"
+              className="absolute inset-0 bg-black/85 backdrop-blur-md"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -191,7 +135,7 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "-105%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34, mass: 0.85 }}
-              className="safe-top safe-bottom absolute inset-y-0 left-0 flex w-[min(92vw,22.5rem)] flex-col overflow-hidden border-r border-white/10 bg-bg shadow-[20px_0_60px_rgba(0,0,0,0.55)]"
+              className="safe-top safe-bottom absolute inset-y-0 left-0 flex w-[min(92vw,22.5rem)] flex-col overflow-hidden border-r border-white/10 bg-bg shadow-[20px_0_60px_rgba(0,0,0,0.65)]"
             >
               <div
                 aria-hidden
@@ -202,7 +146,7 @@ export function Header() {
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
               />
 
-              <div className="relative flex items-center justify-between gap-3 border-b border-line/70 px-4 py-3.5 sm:px-6 sm:py-4">
+              <div className="relative z-10 flex items-center justify-between gap-3 border-b border-line/70 px-4 py-3.5 sm:px-6 sm:py-4">
                 <BrandLogo size="sm" href={null} />
                 <div className="flex items-center gap-3">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
@@ -295,7 +239,76 @@ export function Header() {
             </motion.aside>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body,
+    );
+
+  return (
+    <>
+      <motion.header
+        animate={{ y: hidden && !open ? "-100%" : "0%" }}
+        transition={{ duration: 0.28, ease: easeOut }}
+        className="site-header safe-top sticky top-0 z-40 border-b border-line/80 bg-bg/90 backdrop-blur-xl"
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-2 lg:px-6">
+          <motion.button
+            type="button"
+            className="relative grid h-11 w-11 shrink-0 place-items-center border border-line/80 text-chrome touch-manipulation transition hover:border-accent hover:text-accent lg:hidden"
+            aria-label="Abrir menú"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen(true)}
+            whileTap={{ scale: 0.94 }}
+          >
+            <HamburgerIcon open={false} />
+          </motion.button>
+
+          <div className="flex min-w-0 flex-1 justify-center lg:flex-none lg:justify-start">
+            <BrandLogo size="sm" className="sm:hidden" priority />
+            <span className="hidden sm:inline-flex">
+              <BrandLogo size="md" priority />
+            </span>
+          </div>
+
+          <nav
+            className="hidden max-w-[min(52vw,34rem)] items-center gap-3 overflow-x-auto xl:gap-5 lg:flex"
+            aria-label="Categorías"
+          >
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={goToSection(link.id)}
+                className="shrink-0 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.14em] text-muted transition hover:text-accent xl:text-[11px] xl:tracking-[0.16em]"
+              >
+                {link.navLabel}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
+            <button
+              type="button"
+              className="hidden text-[11px] font-semibold uppercase tracking-[0.16em] text-muted transition hover:text-text md:inline"
+              aria-label="Buscar"
+            >
+              Buscar
+            </button>
+            <button
+              type="button"
+              className="relative min-h-10 border border-line px-2.5 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] touch-manipulation transition hover:border-accent hover:text-accent sm:min-h-0 sm:px-3 sm:py-2 sm:text-[11px]"
+              aria-label="Carrito"
+            >
+              Bolsa
+              <span className="absolute -right-2 -top-2 grid h-5 w-5 place-items-center rounded-full bg-gradient-to-br from-white to-[#b0b0b0] text-[10px] font-bold text-black">
+                {cartCount}
+              </span>
+            </button>
+          </div>
+        </div>
+      </motion.header>
+
+      {drawer}
     </>
   );
 }

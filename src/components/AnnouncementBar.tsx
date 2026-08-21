@@ -26,7 +26,7 @@ export function AnnouncementBar() {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="announcement-chrome relative z-40 border-b"
+      className="announcement-chrome site-announcement relative z-40 border-b"
     >
       <div className="relative z-10 mx-auto flex h-9 max-w-7xl items-center justify-center overflow-hidden px-3 sm:h-10 sm:px-4">
         <AnimatePresence mode="wait">
