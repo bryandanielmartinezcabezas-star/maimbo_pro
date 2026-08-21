@@ -31,24 +31,26 @@ export function HeroSlider() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="absolute inset-0"
         >
-          {/* Art direction: retrato en móvil, banner apaisado en desktop */}
+          {/* Art direction: retrato centrado en móvil, banner apaisado en desktop */}
           <Image
             src={slide.imageMobile}
             alt=""
             fill
             priority={index === 0}
-            className="object-cover object-top sm:hidden"
+            quality={92}
+            className="object-cover sm:hidden"
             style={{ objectPosition: slide.focusMobile }}
-            sizes="100vw"
+            sizes="(max-width: 640px) 100vw, 0px"
           />
           <Image
             src={slide.image}
             alt=""
             fill
             priority={index === 0}
+            quality={90}
             className="hidden object-cover sm:block"
             style={{ objectPosition: slide.focusDesktop }}
-            sizes="100vw"
+            sizes="(min-width: 640px) 100vw, 0px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/15 sm:from-black/90 sm:via-black/10 sm:to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-black via-black/75 to-transparent sm:h-1/3 sm:via-transparent" />

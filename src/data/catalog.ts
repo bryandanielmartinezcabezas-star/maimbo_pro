@@ -120,7 +120,7 @@ export const heroes = [
     secondary: "Novedades",
     image: "/img/real/banner-noche.jpg",
     imageMobile: "/img/real/mobile/hero-noche-m.jpg",
-    focusMobile: "center 28%",
+    focusMobile: "50% 35%",
     focusDesktop: "center center",
   },
   {
@@ -132,7 +132,7 @@ export const heroes = [
     secondary: "Novedades",
     image: "/img/real/banner-callejon.jpg",
     imageMobile: "/img/real/mobile/hero-callejon-m.jpg",
-    focusMobile: "center 22%",
+    focusMobile: "50% 28%",
     focusDesktop: "center 30%",
   },
   {
@@ -144,7 +144,7 @@ export const heroes = [
     secondary: "Novedades",
     image: "/img/real/banner-tunel.jpg",
     imageMobile: "/img/real/mobile/hero-tunel-m.jpg",
-    focusMobile: "center 40%",
+    focusMobile: "50% 42%",
     focusDesktop: "center 28%",
   },
 ];
