@@ -32,7 +32,7 @@ export const categories = [
 
 
 /**
- * Fotos reales del catalogo de MAINBO, tomadas de su pagina oficial.
+ * Fotos reales del catalogo de MAIMBO, tomadas de su pagina oficial.
  *
  * Convencion de los archivos originales:
  *   ropaN      la prenda sola sobre el piso de la tienda
@@ -114,13 +114,14 @@ export const heroes = [
   {
     id: "h1",
     eyebrow: "NUEVA TEMPORADA",
-    title: "MAINBO",
+    title: "MAIMBO",
     subtitle: "Ropa en tendencia para hombre y mujer. Envíos a toda Bolivia.",
     cta: "Ver catálogo",
     secondary: "Novedades",
-    /* Banner apaisado con los modelos a la derecha y la ciudad vacia a la
-       izquierda: el texto entra en ese hueco sin taparle la ropa a nadie. */
     image: "/img/real/banner-noche.jpg",
+    imageMobile: "/img/real/mobile/hero-noche-m.jpg",
+    focusMobile: "center 28%",
+    focusDesktop: "center center",
   },
   {
     id: "h2",
@@ -129,10 +130,10 @@ export const heroes = [
     subtitle: "Conjuntos, hoodies y jeans para romper la calle.",
     cta: "Ver catálogo",
     secondary: "Novedades",
-    /* Foto apaisada de campana. La de la linea de jeans se veia mal aca: era
-       una toma cenital vertical y al estirarla a pantalla completa perdia
-       definicion. Como ficha de producto sigue estando bien. */
     image: "/img/real/banner-callejon.jpg",
+    imageMobile: "/img/real/mobile/hero-callejon-m.jpg",
+    focusMobile: "center 22%",
+    focusDesktop: "center 30%",
   },
   {
     id: "h3",
@@ -141,9 +142,10 @@ export const heroes = [
     subtitle: "Conjuntos deportivos con corte propio.",
     cta: "Ver conjuntos",
     secondary: "Novedades",
-    /* La calle adoquinada de la izquierda queda vacia: el titulo entra ahi
-       sin taparle la ropa al modelo. */
     image: "/img/real/banner-tunel.jpg",
+    imageMobile: "/img/real/mobile/hero-tunel-m.jpg",
+    focusMobile: "center 40%",
+    focusDesktop: "center 28%",
   },
 ];
 
@@ -158,7 +160,7 @@ export const benefits = [
 
 /**
  * Catalogo real de la tienda. Los precios estan en bolivianos y siguen el
- * rango con el que MAINBO trabaja en Sucre.
+ * rango con el que MAIMBO trabaja en Sucre.
  */
 export const products: Product[] = [
   // ------------------------------------------------------------------ polos
@@ -466,6 +468,6 @@ export function descriptionFor(product: Product): string {
   return (
     product.description ??
     DESCRIPTIONS[product.collection] ??
-    "Pieza del catálogo MAINBO, seleccionada para la temporada."
+    "Pieza del catálogo MAIMBO, seleccionada para la temporada."
   );
 }

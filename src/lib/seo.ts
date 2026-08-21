@@ -19,9 +19,9 @@ export const siteConfig = {
     countryName: "Bolivia",
   },
   social: {
-    instagram: "https://www.instagram.com/maimbo.stre",
-    tiktok: "https://www.tiktok.com/@maimbo.stre",
-    facebook: "https://www.facebook.com/maimbo.stre",
+    instagram: "https://www.instagram.com/maimbo.streetwear/",
+    tiktok: "https://www.tiktok.com/@maimbo_1",
+    facebook: "https://www.facebook.com/MAINBOMODA/",
   },
   keywords: [
     "MAIMBO",

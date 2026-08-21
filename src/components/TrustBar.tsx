@@ -15,12 +15,12 @@ export function TrustBar() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ delay: i * 0.06, duration: 0.5 }}
             whileHover={{ backgroundColor: "rgba(255,255,255,0.03)" }}
-            className="bg-bg-elevated px-4 py-5 transition"
+            className="bg-bg-elevated px-3 py-4 transition sm:px-4 sm:py-5"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-text sm:text-[11px] sm:tracking-[0.18em]">
               {item.title}
             </p>
-            <p className="mt-1 text-xs text-muted">{item.detail}</p>
+            <p className="mt-1 text-[11px] leading-snug text-muted sm:text-xs">{item.detail}</p>
           </motion.div>
         ))}
       </div>

@@ -43,7 +43,7 @@ export function ProductPurchase({ name, price, sizes, singleSize = false }: Prod
   /* En Bolivia el pedido se cierra por WhatsApp, asi que el mensaje va armado
      con la pieza, la talla y la cantidad: el vendedor no tiene que preguntar. */
   const whatsappHref = `https://wa.me/${siteConfig.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
-    `Hola MAINBO, quiero ${qty} x ${name}${size ? ` talla ${size}` : ""}. ¿Está disponible?`,
+    `Hola MAIMBO, quiero ${qty} x ${name}${size ? ` talla ${size}` : ""}. ¿Está disponible?`,
   )}`;
 
   return (

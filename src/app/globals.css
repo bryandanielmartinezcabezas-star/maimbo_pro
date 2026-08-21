@@ -96,6 +96,39 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Anclas: el sticky header + announcement no tapan la sección destino. */
+#tienda,
+#tienda-video,
+#inicio,
+#novedades,
+#mas-vendidos,
+#tracksuits,
+#polos,
+#hoodies,
+#jeans,
+#accesorios,
+#drops,
+#footer {
+  scroll-margin-top: calc(4.75rem + env(safe-area-inset-top, 0px));
+}
+
+@media (min-width: 640px) {
+  #tienda,
+  #tienda-video,
+  #inicio,
+  #novedades,
+  #mas-vendidos,
+  #tracksuits,
+  #polos,
+  #hoodies,
+  #jeans,
+  #accesorios,
+  #drops,
+  #footer {
+    scroll-margin-top: calc(5.25rem + env(safe-area-inset-top, 0px));
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -442,11 +475,103 @@ button {
   .marquee-track {
     animation-duration: 22s;
   }
+
+  .section {
+    padding-block: clamp(3rem, 12vw, 4.5rem);
+  }
+
+  .rest {
+    height: clamp(2.5rem, 8vw, 4rem);
+  }
+}
+
+.product-media .product-actions a {
+  color: #0a0a0a !important;
+}
+
+@media (max-width: 1024px) {
+  .display {
+    letter-spacing: 0.03em;
+  }
 }
 
 .announcement-chrome {
-  background: linear-gradient(90deg, #1a1a1a, #3a3a3a 30%, #d8d8d8 50%, #3a3a3a 70%, #1a1a1a);
-  color: #0a0a0a;
+  position: relative;
+  overflow: hidden;
+  color: #050505;
+  background:
+    linear-gradient(
+      90deg,
+      #2a2a2a 0%,
+      #7a7a7a 18%,
+      #f4f4f4 38%,
+      #ffffff 50%,
+      #f4f4f4 62%,
+      #7a7a7a 82%,
+      #2a2a2a 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(255, 255, 255, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.announcement-chrome::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 65%
+  );
+  mix-blend-mode: soft-light;
+  animation: announcement-shine 3.6s var(--ease-out) infinite;
+}
+
+.announcement-chrome::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.95) 35%,
+    rgba(255, 255, 255, 0.95) 65%,
+    transparent
+  );
+}
+
+@keyframes announcement-shine {
+  0% {
+    transform: translateX(-55%);
+    opacity: 0.35;
+  }
+  35% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(55%);
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-chrome::before {
+    animation: none;
+    opacity: 0.35;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

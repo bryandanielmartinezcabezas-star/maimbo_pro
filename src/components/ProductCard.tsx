@@ -38,8 +38,8 @@ export function ProductCard({
       transition={{ delay: Math.min(index * 0.04, 0.24), duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className={
         fixedWidth
-          ? "group relative w-[72vw] shrink-0 snap-start sm:w-[260px] lg:w-[280px]"
-          : "group relative"
+          ? "group relative w-[68vw] max-w-[17.5rem] shrink-0 snap-start sm:w-[240px] sm:max-w-none md:w-[260px] lg:w-[280px]"
+          : "group relative min-w-0"
       }
     >
       <div className="product-media relative aspect-[3/4] overflow-hidden border border-line/60">
@@ -80,8 +80,8 @@ export function ProductCard({
 
         {/* Las tallas se revelan al acercarse, como en las tiendas de
             referencia: en reposo manda la foto, no los controles. */}
-        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-black/85 p-3 transition-transform duration-300 group-hover:translate-y-0">
-          <div className="mb-2 flex justify-center gap-1.5">
+        <div className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-black/85 p-3 transition-transform duration-300 group-hover:translate-y-0 product-actions">
+          <div className="mb-2 flex justify-center gap-1.5 size-row">
             {["S", "M", "L", "XL"].map((size) => (
               <button
                 key={size}
@@ -95,7 +95,7 @@ export function ProductCard({
           </div>
           <Link
             href={`/producto/${product.id}`}
-            className="display block w-full bg-accent py-2 text-center text-lg text-black transition hover:bg-white"
+            className="display block w-full bg-accent py-2 text-center text-lg !text-black transition hover:bg-white hover:!text-black"
           >
             Ver producto
           </Link>

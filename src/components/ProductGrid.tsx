@@ -18,7 +18,7 @@ export function ProductGrid({ id, title, subtitle, products }: ProductListProps)
       <div className="mx-auto max-w-7xl px-4 lg:px-6">
         <SectionHeader title={title} subtitle={subtitle} />
 
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
           {products.map((product, i) => (
             <ProductCard
               key={`${id}-${product.id}`}
