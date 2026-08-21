@@ -26,7 +26,7 @@ const whatsappLink = (text: string) =>
  *
  * El codigo lleva el pedido armado a WhatsApp, asi que en la demo se escanea
  * con cualquier celular y funciona. En la tienda real este lugar lo ocupa el QR
- * Simple del banco de MAINBO, que cobra directo a su cuenta.
+ * Simple del banco de MAIMBO, que cobra directo a su cuenta.
  */
 export function PaymentQr({ open, onClose, productName, size, qty, total }: PaymentQrProps) {
   const [qrDataUrl, setQrDataUrl] = useState("");

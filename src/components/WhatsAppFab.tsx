@@ -11,7 +11,7 @@ export function WhatsAppFab() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 18 }}
-      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(0.85rem,env(safe-area-inset-right))] z-40 grid h-12 w-12 place-items-center rounded-full shadow-[0_0_30px_rgba(255,255,255,0.25)] transition hover:scale-105 hover:brightness-110 sm:bottom-[max(1.25rem,env(safe-area-inset-bottom))] sm:right-5 sm:h-14 sm:w-14"
+      className="site-whatsapp-fab fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(0.85rem,env(safe-area-inset-right))] z-40 grid h-12 w-12 place-items-center rounded-full shadow-[0_0_30px_rgba(255,255,255,0.25)] transition hover:scale-105 hover:brightness-110 sm:bottom-[max(1.25rem,env(safe-area-inset-bottom))] sm:right-5 sm:h-14 sm:w-14"
       style={{
         background: "linear-gradient(135deg, #fff 0%, #c8c8c8 50%, #8a8a8a 100%)",
       }}
