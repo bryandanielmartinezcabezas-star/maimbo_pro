@@ -37,12 +37,6 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
      un QR nuevo hasta trabar la pestana. */
   const [reference, setReference] = useState("");
 
-  const orderText = reference
-    ? `Hola MAINBO, pagué por QR ${formatPrice(total)} por ${qty} x ${productName}${
-        size ? ` talla ${size}` : ""
-      }. Referencia ${reference}. Adjunto comprobante.`
-    : "";
-
   useEffect(() => {
     if (!open) return;
 
@@ -194,18 +188,27 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
               </dl>
 
               {confirmed ? (
-                <div className="border border-accent/40 bg-accent/10 px-4 py-4 text-center text-sm text-text">
-                  <p className="font-semibold">Pago registrado</p>
+                /* No se le pide comprobante a quien ya pago: el QR lleva la
+                   referencia del pedido, asi que el banco avisa cual se cobro
+                   y la tienda lo identifica sola. Pedirle al cliente que mande
+                   una captura es trasladarle a el un problema nuestro. */
+                <div className="border border-accent/40 bg-accent/10 px-4 py-5 text-center text-sm">
+                  <p className="display text-xl text-accent">Pago recibido</p>
+                  <p className="mt-2 text-text">
+                    Tu pedido {reference} quedó registrado.
+                  </p>
                   <p className="mt-1 text-muted">
-                    Mandá el comprobante por WhatsApp y preparamos el pedido.
+                    MAINBO ya fue avisado y prepara el envío. No hace falta que mandes nada.
                   </p>
                   <a
-                    href={whatsappLink(orderText)}
+                    href={whatsappLink(
+                      `Hola MAINBO, consulto por mi pedido ${reference}.`,
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="display mt-3 block w-full whitespace-nowrap border border-line px-4 py-3 text-base text-text transition hover:border-accent hover:text-accent"
+                    className="mt-4 inline-block text-[11px] uppercase tracking-[0.16em] text-muted underline underline-offset-4 transition hover:text-accent"
                   >
-                    Enviar comprobante
+                    ¿Algún problema? Escribinos
                   </a>
                 </div>
               ) : (
@@ -219,8 +222,9 @@ export function PaymentQr({ open, onClose, productName, size, qty, total }: Paym
               )}
 
               <p className="text-center text-[11px] leading-relaxed text-muted">
-                Prototipo: el cobro no es real. En la tienda va el QR Simple del banco
-                de MAINBO y el dinero entra directo a su cuenta.
+                Prototipo: el cobro no es real. En la tienda va el QR del banco de
+                MAINBO, el dinero entra directo a su cuenta y el aviso del pago
+                llega solo con esta misma referencia.
               </p>
             </div>
           </motion.div>
