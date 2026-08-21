@@ -100,26 +100,21 @@ export function Header() {
       <motion.header
         animate={{ y: hidden && !open ? "-100%" : "0%" }}
         transition={{ duration: 0.28, ease: easeOut }}
-        className={`safe-top sticky top-0 border-b border-line/80 bg-bg/90 backdrop-blur-xl ${
-          open ? "z-[60]" : "z-40"
+        className={`safe-top sticky top-0 z-40 border-b border-line/80 bg-bg/90 backdrop-blur-xl transition-opacity duration-200 ${
+          open ? "pointer-events-none opacity-0 lg:pointer-events-auto lg:opacity-100" : ""
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-2 lg:px-6">
           <motion.button
             type="button"
             className="relative grid h-11 w-11 shrink-0 place-items-center border border-line/80 text-chrome touch-manipulation transition hover:border-accent hover:text-accent lg:hidden"
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-label="Abrir menú"
             aria-expanded={open}
             aria-controls="mobile-nav"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => setOpen(true)}
             whileTap={{ scale: 0.94 }}
           >
-            <motion.span
-              className="pointer-events-none absolute inset-0 bg-white/[0.04]"
-              animate={open ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            />
-            <HamburgerIcon open={open} />
+            <HamburgerIcon open={false} />
           </motion.button>
 
           <div className="flex min-w-0 flex-1 justify-center lg:flex-none lg:justify-start">
@@ -171,7 +166,7 @@ export function Header() {
         {open && (
           <motion.div
             key="mobile-nav-root"
-            className="fixed inset-0 z-50 lg:hidden"
+            className="fixed inset-0 z-[80] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -180,7 +175,7 @@ export function Header() {
             <motion.button
               type="button"
               aria-label="Cerrar menú"
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/80 backdrop-blur-md"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -196,7 +191,7 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "-105%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34, mass: 0.85 }}
-              className="safe-top safe-bottom absolute inset-y-0 left-0 flex w-[min(90vw,22.5rem)] flex-col overflow-hidden border-r border-white/10 bg-bg shadow-[20px_0_60px_rgba(0,0,0,0.55)]"
+              className="safe-top safe-bottom absolute inset-y-0 left-0 flex w-[min(92vw,22.5rem)] flex-col overflow-hidden border-r border-white/10 bg-bg shadow-[20px_0_60px_rgba(0,0,0,0.55)]"
             >
               <div
                 aria-hidden
@@ -207,11 +202,21 @@ export function Header() {
                 className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"
               />
 
-              <div className="relative flex items-center justify-between gap-3 border-b border-line/70 px-5 py-4 sm:px-6">
+              <div className="relative flex items-center justify-between gap-3 border-b border-line/70 px-4 py-3.5 sm:px-6 sm:py-4">
                 <BrandLogo size="sm" href={null} />
-                <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
-                  Menú
-                </p>
+                <div className="flex items-center gap-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
+                    Menú
+                  </p>
+                  <button
+                    type="button"
+                    aria-label="Cerrar menú"
+                    onClick={() => setOpen(false)}
+                    className="grid h-11 w-11 place-items-center border border-line/80 text-chrome touch-manipulation transition hover:border-accent hover:text-accent"
+                  >
+                    <HamburgerIcon open />
+                  </button>
+                </div>
               </div>
 
               <motion.nav
