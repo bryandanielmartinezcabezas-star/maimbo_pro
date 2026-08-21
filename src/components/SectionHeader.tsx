@@ -19,14 +19,14 @@ interface SectionHeaderProps {
  */
 export function SectionHeader({ title, subtitle, actions }: SectionHeaderProps) {
   return (
-    <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-      <div>
+    <div className="mb-6 flex flex-wrap items-end justify-between gap-3 sm:mb-8 sm:gap-4">
+      <div className="min-w-0 flex-1">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="display text-5xl text-text sm:text-6xl"
+          className="display text-[clamp(2rem,9vw,3.75rem)] text-text"
         >
           {title}
         </motion.h2>

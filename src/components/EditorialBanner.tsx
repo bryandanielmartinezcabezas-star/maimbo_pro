@@ -15,7 +15,7 @@ export function EditorialBanner() {
         <div className="group relative min-h-[280px] overflow-hidden transition-[min-height] duration-500 ease-out hover:min-h-[560px] sm:min-h-[360px] lg:min-h-[420px] lg:hover:min-h-[640px]">
           <Image
             src="/img/real/atuendo_v_tipo_banner.jpg"
-            alt="Campaña Luxury Tracksuits de MAINBO"
+            alt="Campaña Luxury Tracksuits de MAIMBO"
             fill
             className="object-cover object-top transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:object-contain"
             sizes="(max-width: 1024px) 100vw, 50vw"
